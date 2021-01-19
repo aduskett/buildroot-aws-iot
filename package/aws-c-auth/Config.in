@@ -1,0 +1,15 @@
+config BR2_PACKAGE_AWS_C_AUTH
+	bool "aws-c-auth"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	select BR2_PACKAGE_AWS_C_CAL
+	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_AWS_C_HTTP
+	select BR2_PACKAGE_AWS_C_IO
+	help
+	  C99 library implementation of AWS client-side authentication:
+	  standard credentials providers and signing.
+
+	  https://github.com/awslabs/aws-c-auth
+
+comment "aws-c-auth needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

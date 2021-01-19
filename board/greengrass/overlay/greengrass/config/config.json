@@ -1,0 +1,28 @@
+{
+  "coreThing" : {
+    "caPath" : "/greengrass/certs/",
+    "certPath" : "/greengrass/certs/",
+    "keyPath" : "/greengrass/certs/",
+    "thingArn" : "<arn>",
+    "iotHost" : "<iotHost>",
+    "ggHost" : "<ggHost>",
+    "keepAlive" : 600
+  },
+  "runtime" : {
+    "cgroup" : {
+      "useSystemd" : "yes"
+    }
+  },
+  "managedRespawn" : false,
+  "crypto" : {
+    "principals" : {
+      "SecretsManager" : {
+        "privateKeyPath" : "file:///greengrass/certs/"
+      },
+      "IoTCertificate" : {
+        "privateKeyPath" : "file:///greengrass/certs/",
+        "certificatePath" : "file:///greengrass/certs/"
+      }
+    }
+  }
+}

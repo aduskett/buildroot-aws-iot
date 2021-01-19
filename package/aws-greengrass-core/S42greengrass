@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$1" in
+  start|stop|restart|reload)
+	printf "Starting greengrassd: "
+	start-stop-daemon -S -q -x /greengrass/ggc/core/greengrassd -- ${1}
+	if [ $? != 0 ]; then
+		echo "FAILED"
+		exit 1
+	else
+		echo "OK"
+	fi
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $

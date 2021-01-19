@@ -1,0 +1,21 @@
+config BR2_PACKAGE_AWS_C_MQTT
+	bool "aws-c-mqtt"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	select BR2_PACKAGE_AWS_C_IO
+	help
+	  C99 implementation of the MQTT/1.1 and MQTT/2 specifications
+
+	  https://github.com/awslabs/aws-c-mqtt
+
+if BR2_PACKAGE_AWS_C_MQTT
+
+config BR2_PACKAGE_AWS_C_MQTT_WEBSOCKETS
+	bool "websocket support"
+	select BR2_PACKAGE_AWS_C_HTTP
+	help
+	  Enable MQTT connections over websockets.
+
+endif
+
+comment "aws-c-mqtt needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

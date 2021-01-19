@@ -1,0 +1,25 @@
+config BR2_PACKAGE_AWS_C_IO
+	bool "aws-c-io"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common, s2n
+	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_S2N
+	help
+	  This is a module for the AWS SDK for C. It handles all IO and
+	  TLS work for application protocols.
+
+	  aws-c-io is an event driven framework for implementing
+	  application protocols. It is built on top of cross-platform
+	  abstractions that allow you as a developer to think only about
+	  the state machine and API for your protocols. A typical
+	  use-case would be to write something like Http on top of
+	  asynchronous-io with TLS already baked in. All of the platform
+	  and security concerns are already handled for you.
+
+	  It is designed to be light-weight, fast, portable, and
+	  flexible for multiple domain use-cases such as: embedded,
+	  server, client, and mobile.
+
+	  https://github.com/awslabs/aws-c-io
+
+comment "aws-c-io needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

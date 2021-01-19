@@ -1,0 +1,10 @@
+[Unit]
+Description=Greengrass core daemon
+
+[Service]
+Type=forking
+ExecStart=/greengrass/ggc/core/greengrassd start
+ExecStop=/greengrass/ggc/core/greengrassd stop
+
+[Install]
+WantedBy=multi-user.target

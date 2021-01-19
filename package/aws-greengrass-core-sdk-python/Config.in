@@ -1,0 +1,21 @@
+config BR2_PACKAGE_AWS_GREENGRASS_CORE_SDK_PYTHON
+	bool "aws-greengrass-core-sdk-python"
+	depends on BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH_SUPPORTS
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
+	depends on BR2_PACKAGE_PYTHON || BR2_PACKAGE_PYTHON3
+	select BR2_PACKAGE_AWS_GREENGRASS_CORE
+	select BR2_PACKAGE_PYTHON_CBOR2
+
+	help
+	  The AWS IoT Greengrass Core SDK is meant to be used by AWS
+	  Lambda functions running on an AWS IoT Greengrass Core.
+	  It will enable Lambda functions to invoke other Lambda
+	  functions deployed to the Greengrass Core, publish
+	  messages to the Greengrass Core and work with the local
+	  Shadow service.
+
+	  https://github.com/aws/aws-greengrass-core-sdk-python
+
+comment "aws-greengrass-core-python needs a toolchain w/ headhers >= 3.17"
+	depends on BR2_PACKAGE_GREENGRASS_ARCH_SUPPORTS
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17

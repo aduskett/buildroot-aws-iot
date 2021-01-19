@@ -1,0 +1,70 @@
+# Taken from make/autoconf/platform.m4
+config BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH_SUPPORTS
+	bool
+	default y if BR2_aarch64
+	default y if BR2_arm
+	default y if BR2_x86_64
+
+config BR2_PACKAGE_AWS_GREENGRASS_CORE
+	bool "aws-greengrass-core"
+	depends on BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH_SUPPORTS
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
+	help
+	  AWS IoT Greengrass seamlessly extends AWS to edge devices so
+	  they can act locally on the data they generate, while
+	  still using the cloud for management, analytics, and durable
+	  storage. With AWS IoT Greengrass, connected devices can run
+	  AWS Lambda functions, Docker containers, or both,
+	  execute predictions based on machine learning models, keep
+	  device data in sync, and communicate with other devices
+	  securely – even when not connected to the Internet.
+
+	  https://aws.amazon.com/greengrass/
+
+if BR2_PACKAGE_AWS_GREENGRASS_CORE
+
+# Dependencies from:
+# https://docs.aws.amazon.com/greengrass/latest/developerguide/what-is-gg.html
+config BR2_PACKAGE_AWS_GREENGRASS_CORE_OTA_AGENT
+	bool "over-the-air (OTA) update agent support"
+	depends on BR2_PACKAGE_BUSYBOX_SHOW_OTHERS
+	depends on BR2_USE_MMU # tar, wget, procps-ng
+	depends on BR2_USE_WCHAR # tar, wget
+	select BR2_PACKAGE_BASH
+	select BR2_PACKAGE_CA_CERTIFICATES
+	select BR2_PACKAGE_COREUTILS
+	select BR2_PACKAGE_FINDUTILS
+	select BR2_PACKAGE_GREP
+	select BR2_PACKAGE_GZIP
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_PROCPS_NG # pidof
+	select BR2_PACKAGE_TAR
+	select BR2_PACKAGE_UTIL_LINUX
+	select BR2_PACKAGE_UTIL_LINUX_MOUNT
+	select BR2_PACKAGE_WGET
+
+comment "OTA update agent needs a toolchain w/ dynamic library, wchar"
+	depends on BR2_USE_MMU
+	depends on !BR2_USE_WCHAR
+	depends on BR2_PACKAGE_BUSYBOX_SHOW_OTHERS
+
+config BR2_PACKAGE_AWS_GREENGRASS_CORE_STREAM_MANAGER
+	bool "stream manager support"
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS # openjdk
+	depends on BR2_OPENJDK_VERSION_LTS # Only OpenJDK 11.
+
+comment "Stream support requires OpenJDK-11"
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
+	depends on !BR2_OPENJDK_VERSION_LTS
+
+config BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH
+	string
+	default "aarch64" if BR2_ARM_CPU_ARMV8A
+	default "armv6l"  if BR2_ARM_CPU_ARMV6
+	default "armv7l"  if BR2_ARM_CPU_ARMV7A || BR2_ARM_CPU_ARMV7M
+	default "x86-64"  if BR2_x86_64
+
+endif
+
+comment "aws-crt-cpp needs a toolchain w/ threads, C++, headers >= 3.17"
+	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS

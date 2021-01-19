@@ -1,0 +1,14 @@
+config BR2_PACKAGE_S2N
+	bool "s2n"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	select BR2_PACKAGE_OPENSSL
+	help
+	  s2n is a C99 implementation of the TLS/SSL protocols that is
+	  designed to be simple, small, fast, and with security as a
+	  priority. It is released and licensed under the Apache
+	  License 2.0.
+
+	  https://github.com/awslabs/s2n
+
+comment "s2n needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

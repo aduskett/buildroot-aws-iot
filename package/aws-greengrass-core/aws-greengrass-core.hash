@@ -1,0 +1,6 @@
+# Locally calculated
+sha256  20bf2f5bf0bd92db5eb944551057bfcaf4f05309bff2e834286d69e774655e19  greengrass-linux-aarch64-1.11.0.tar.gz
+sha256  d3215174cb55510db5bf3ae14426e7c7050455675e9c5f7384a3bfd5e2c0d483  greengrass-linux-armv6l-1.11.0.tar.gz
+sha256  af6ac0b277193a17d59b010071e153aa3d9aca1136062dd044caab3a9b663b13  greengrass-linux-armv7l-1.11.0.tar.gz
+sha256  28f9ec7c64e937d309bd5b70903020e9ed590626de08a8151b7b9bd4a618727e  greengrass-linux-x86-64-1.11.0.tar.gz
+sha256  a2e77e961c12a90bff22a47d51e5585af0c6c009bbd08201f5a758e0e17f45eb  LICENSE

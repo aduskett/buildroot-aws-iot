@@ -1,0 +1,13 @@
+config BR2_PACKAGE_AWS_C_CAL
+	bool "aws-c-cal"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_OPENSSL
+	help
+	  AWS Crypto Abstraction Layer: Cross-Platform, C99 wrapper for
+	  cryptography primitives.
+
+	  https://github.com/awslabs/aws-c-cal
+
+comment "aws-c-cal needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS
