@@ -22,7 +22,8 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-device-sdk-cpp-v2/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-device-sdk-python-v2/Config.in"
 endmenu
 
-menu "AWS-IOT example programs"
+menu "AWS-IOT programs"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-ssm-agent/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-securetunneling-localproxy/Config.in"
 endmenu
 
