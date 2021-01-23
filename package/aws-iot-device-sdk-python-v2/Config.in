@@ -3,6 +3,7 @@ config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_PYTHON_V2
 	depends on BR2_INSTALL_LIBSTDCPP
 	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-crt-python -> aws-c-common
 	depends on BR2_PACKAGE_PYTHON3
+	select BR2_PACKAGE_PYTHON3_SSL
 	select BR2_PACKAGE_AWS_CRT_PYTHON
 	help
 	  Next generation AWS IoT SDK based on the AWS Common Runtime
