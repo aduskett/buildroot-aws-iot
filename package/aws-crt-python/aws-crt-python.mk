@@ -18,9 +18,11 @@ AWS_CRT_PYTHON_DEPENDENCIES = \
 	aws-c-cal \
 	aws-c-common \
 	aws-c-compression \
+	aws-c-event-stream \
 	aws-c-http \
 	aws-c-io \
 	aws-c-mqtt \
+	aws-c-s3 \
 	s2n
 
 # Prevent errors about the deprecated functions
