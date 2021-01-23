@@ -3,6 +3,7 @@ config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_CPP_V2
 	depends on BR2_INSTALL_LIBSTDCPP # aws-crt-cpp
 	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-crt-cpp -> aws-c-common
 	select BR2_PACKAGE_AWS_C_IO
+	select BR2_PACKAGE_AWS_C_IOT
 	select BR2_PACKAGE_AWS_CRT_CPP
 	help
 	  Next generation AWS IoT Client SDK for C++ using the AWS
