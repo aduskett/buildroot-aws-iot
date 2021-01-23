@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_GREENGRASS_CORE_SDK_C_VERSION = 1.1.0
+AWS_GREENGRASS_CORE_SDK_C_VERSION = 1.2.0
 AWS_GREENGRASS_CORE_SDK_C_SITE = $(call github,aws,aws-greengrass-core-sdk-c,v$(AWS_GREENGRASS_CORE_SDK_C_VERSION))
 AWS_GREENGRASS_CORE_SDK_C_LICENSE = Apache-2.0
 AWS_GREENGRASS_CORE_SDK_C_LICENSE_FILES = LICENSE

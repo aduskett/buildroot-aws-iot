@@ -1,0 +1,23 @@
+config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_CPP
+	bool "aws-iot-device-sdk-cpp"
+	depends on BR2_INSTALL_LIBSTDCPP # aws-crt-cpp
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-crt-cpp -> aws-c-common
+	select BR2_PACKAGE_AWS_C_IO
+	select BR2_PACKAGE_AWS_CRT_CPP
+	help
+	  The Device SDK simplifies access to the Pub/Sub functionality
+	  of the AWS IoT broker via MQTT and provides APIs to interact
+	  with Thing Shadows. The SDK has been tested to work with the
+	  AWS IoT platform to ensure best interoperability of a device
+	  with the AWS IoT platform.
+
+	  NOTE: A new AWS IoT Device SDK is now available. It is a
+	        complete rework, built to improve reliability,
+	        performance, and security. This SDK will no longer
+	        receive feature updates, but will receive security
+	        updates.
+
+	  https://github.com/aws/aws-iot-device-sdk-cpp
+
+comment "aws-iot-device-sdk-cpp-v2 needs a toolchain w/ threads, C++"
+	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS

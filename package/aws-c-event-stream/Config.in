@@ -1,0 +1,13 @@
+config BR2_PACKAGE_AWS_C_EVENT_STREAM
+	bool "aws-c-event-stream"
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-io
+	select BR2_PACKAGE_AWS_C_IO
+	select BR2_PACKAGE_AWS_CHECKSUMS
+	help
+	  C99 implementation of the vnd.amazon.event-stream
+	  content-type.
+
+	  https://github.com/awslabs/aws-c-event-stream
+
+comment "aws-event-stream needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

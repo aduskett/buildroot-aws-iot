@@ -1,0 +1,14 @@
+config BR2_PACKAGE_AWS_SDK_JAVA_V2
+	bool "aws-sdk-java-v2"
+	depends on BR2_PACKAGE_OPENJDK
+	help
+	  The AWS SDK for Java 2.0 is a rewrite of 1.0 with some great
+	  new features. As with version 1.0, it enables you to easily
+	  work with Amazon Web Services but also includes features like
+	  non-blocking IO and pluggable HTTP implementation to further
+	  customize your applications.
+
+	  https://github.com/aws/aws-sdk-java-v2
+
+comment "aws-sdk-java-v2 needs java"
+	depends on !BR2_PACKAGE_OPENJDK

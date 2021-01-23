@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_HTTP_VERSION = 0.5.2
+AWS_C_HTTP_VERSION = 0.5.19
 AWS_C_HTTP_SITE = $(call github,awslabs,aws-c-http,v$(AWS_C_HTTP_VERSION))
 AWS_C_HTTP_LICENSE = Apache-2.0
 AWS_C_HTTP_LICENSE_FILES = LICENSE

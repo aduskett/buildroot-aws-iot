@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_CRT_PYTHON_VERSION = 0.5.11
+AWS_CRT_PYTHON_VERSION = 0.10.2
 AWS_CRT_PYTHON_SITE = $(call github,awslabs,aws-crt-python,v$(AWS_CRT_PYTHON_VERSION))
 AWS_CRT_PYTHON_LICENSE = Apache-2.0
 AWS_CRT_PYTHON_LICENSE_FILES = LICENSE
