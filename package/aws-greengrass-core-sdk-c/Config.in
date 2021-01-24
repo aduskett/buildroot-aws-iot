@@ -1,8 +1,8 @@
 config BR2_PACKAGE_AWS_GREENGRASS_CORE_SDK_C
 	bool "aws-greengrass-core-sdk-c"
-	depends on BR2_PACKAGE_GREENGRASS_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH_SUPPORTS
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
-	select BR2_PACKAGE_AWS_GREENGRASS
+	select BR2_PACKAGE_AWS_GREENGRASS_CORE # runtime
 	help
 	  The AWS Greengrass Core SDK for C provides an interface to
 	  interact with the Greengrass Core system on the edge. It is
@@ -11,6 +11,6 @@ config BR2_PACKAGE_AWS_GREENGRASS_CORE_SDK_C
 
 	  https://github.com/aws/aws-greengrass-core-sdk-c
 
-comment "aws-greengrass-core-sdk needs a toolchain w/ headers >= 3.17"
+comment "aws-greengrass-core-sdk-c needs a toolchain w/ headers >= 3.17"
 	depends on BR2_PACKAGE_GREENGRASS_ARCH_SUPPORTS
 	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS

@@ -16,6 +16,6 @@ config BR2_PACKAGE_AWS_GREENGRASS_CORE_SDK_PYTHON
 
 	  https://github.com/aws/aws-greengrass-core-sdk-python
 
-comment "aws-greengrass-core-python needs a toolchain w/ headhers >= 3.17"
-	depends on BR2_PACKAGE_GREENGRASS_ARCH_SUPPORTS
+comment "aws-greengrass-core-sdk-python needs a toolchain w/ headhers >= 3.17"
+	depends on BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH_SUPPORTS
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
