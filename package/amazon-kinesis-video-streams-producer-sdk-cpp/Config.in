@@ -22,13 +22,14 @@ config AMAZON_KINESIS_VIDEO_STREAMS_PRODUCER_SDK_CPP_GSTREAMER_PLUGIN
 	bool "gstreamer1 plugin"
 	depends on BR2_USE_MMU # gstreamer1 -> glib2
 	depends on !BR2_TOOLCHAIN_USES_MUSL
+	depends on !BR2_STATIC_LIBS
 	select BR2_PACKAGE_GSTREAMER1
 	select BR2_PACKAGE_GST1_PLUGINS_BASE
 	help
 	  Build kvssink GStreamer plugin
 
-comment "gstreamer1 plugin is not compatible with musl"
-	depends on BR2_TOOLCHAIN_USES_MUSL
+comment "gstreamer1 plugin needs glibc or uClibc toolchain w/ dynamic library"
+	depends on BR2_TOOLCHAIN_USES_MUSL || BR2_STATIC_LIBS
 
 if AMAZON_KINESIS_VIDEO_STREAMS_PRODUCER_SDK_CPP_GSTREAMER_PLUGIN
 
