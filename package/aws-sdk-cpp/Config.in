@@ -35,6 +35,11 @@ config BR2_PACKAGE_AWS_SDK_CPP_TEXT_TO_SPEECH
 	help
 	  text-to-speech plugin
 
+comment "text-to-speech support needs a toolchain w/ wchar, threads, dynamic library"
+	depends on BR2_USE_MMU
+	depends on BR2_PACKAGE_PULSEAUDIO_HAS_ATOMIC
+	depends on !BR2_USE_WCHAR || !BR2_TOOLCHAIN_HAS_THREADS || BR2_STATIC_LIBS
+
 endif
 
 comment "aws-sdk-cpp needs a glibc or uClibc toolchain w/ NPTL, C++"
