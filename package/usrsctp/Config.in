@@ -1,0 +1,13 @@
+config BR2_PACKAGE_USRSCTP
+	bool "usrsctp"
+	help
+	  A portable SCTP userland stack
+
+	  https://github.com/sctplab/usrsctp
+
+if BR2_PACKAGE_USRSCTP
+
+config BR2_PACKAGE_USRSCTP_EXAMPLE_PROGRAMS
+	bool "example-programs"
+
+endif

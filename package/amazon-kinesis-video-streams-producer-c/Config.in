@@ -1,0 +1,25 @@
+config BR2_PACKAGE_AMAZON_KINESIS_VIDEO_STREAMS_PRODUCER_C
+	bool "amazon-kinesis-video-streams-producer-c"
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_AMAZON_KINESIS_VIDEO_STREAMS_PIC
+	select BR2_PACKAGE_JSMN
+	select BR2_PACKAGE_LIBCURL
+	select BR2_PACKAGE_OPENSSL
+	help
+	  Amazon Kinesis Video Streams Webrtc SDK is for developers to
+	  install and customize realtime communication between devices
+	  and enable secure streaming of video, audio to Kinesis Video
+	  Streams.
+
+	  https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c
+
+if BR2_PACKAGE_AMAZON_KINESIS_VIDEO_STREAMS_PRODUCER_C
+
+config BR2_PACKAGE_AMAZON_KINESIS_VIDEO_STREAMS_PRODUCER_C_WEBSOCKETS
+	bool "websockets support"
+	select BR2_PACKAGE_LIBWEBSOCKETS
+
+endif
+
+comment "amazon-kinesis-video-streams-producer-c needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

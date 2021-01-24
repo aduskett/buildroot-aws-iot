@@ -1,0 +1,6 @@
+config BR2_PACKAGE_AMAZON_KINESIS_VIDEO_STREAMS_PIC
+	bool "amazon-kinesis-video-streams-pic"
+	help
+	  Platform Indendent Code for Amazon Kinesis Video Streams
+
+	  https://github.com/awslabs/amazon-kinesis-video-streams-pic

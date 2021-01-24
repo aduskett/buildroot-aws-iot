@@ -41,12 +41,12 @@ endif
 
 ifeq ($(BR2_STATIC_LIBS),y)
 AWS_SDK_CPP_CONF_OPTS += \
-	-DBUILD_SHARED_LIBS=ON \
-	-DFORCE_SHARED_CRT=ON
-else ifeq ($(BR2_SHARED_LIBS),y)
-AWS_SDK_CPP_CONF_OPTS += \
 	-DBUILD_SHARED_LIBS=OFF \
 	-DFORCE_SHARED_CRT=OFF
+else ifeq ($(BR2_SHARED_LIBS),y)
+AWS_SDK_CPP_CONF_OPTS += \
+	-DBUILD_SHARED_LIBS=ON \
+	-DFORCE_SHARED_CRT=ON
 endif
 
 ifeq ($(BR2_PACKAGE_AWS_SDK_CPP_HTTP_CLIENT),y)
@@ -56,6 +56,8 @@ AWS_SDK_CPP_CONF_OPTS += \
 	-DENABLE_CURL_LOGGING=ON \
 	-DFORCE_CURL=ON
 
+# Prevent Cmaketests trying to run cross-compiled binaries in an attempt to
+# check if libcurl has proxy support
 ifeq ($(BR2_PACKAGE_LIBCURL_PROXY_SUPPORT),y)
 AWS_SDK_CPP_CONF_OPTS += \
 	-DCURL_HAS_TLS_PROXY_EXITCODE=0 \
@@ -66,6 +68,8 @@ AWS_SDK_CPP_CONF_OPTS += \
 	-DCURL_HAS_TLS_PROXY_EXITCODE__TRYRUN_OUTPUT="no"
 endif
 
+# Prevent Cmaketests trying to run cross-compiled binaries in an attempt to
+# check if libcurl has http2 support
 ifeq ($(BR2_PACKAGE_NGHTTP2),y)
 AWS_SDK_CPP_CONF_OPTS += \
 	-DCURL_HAS_H2_EXITCODE=0 \
@@ -81,7 +85,7 @@ AWS_SDK_CPP_CONF_OPTS += \
 	-DNO_HTTP_CLIENT=ON \
 	-DENABLE_CURL_LOGGING=OFF \
 	-DFORCE_CURL=OFF
-endif
+endif # ifeq ($(BR2_PACKAGE_AWS_SDK_CPP_HTTP_CLIENT),y)
 
 ifeq ($(BR2_PACKAGE_AWS_SDK_CPP_TEXT_TO_SPEECH),y)
 AWS_SDK_CPP_DEPENDENCIES += pulseaudio

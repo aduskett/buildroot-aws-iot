@@ -1,7 +1,8 @@
 config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_CPP
 	bool "aws-iot-device-sdk-cpp"
 	depends on BR2_INSTALL_LIBSTDCPP # aws-crt-cpp
-	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-crt-cpp -> aws-c-common
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
+	depends on !BR2_TOOLCHAIN_USES_MUSL # aws-c-common -> pthread_attr_setaffinity_np
 	select BR2_PACKAGE_AWS_C_IO
 	select BR2_PACKAGE_AWS_CRT_CPP
 	help
@@ -19,5 +20,6 @@ config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_CPP
 
 	  https://github.com/aws/aws-iot-device-sdk-cpp
 
-comment "aws-iot-device-sdk-cpp-v2 needs a toolchain w/ threads, C++"
-	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS
+comment "aws-iot-device-sdk-cpp needs a glibc or uClibc toolchain w/ NPTL, C++"
+	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS_NPTL || \
+		BR2_TOOLCHAIN_USES_MUSL

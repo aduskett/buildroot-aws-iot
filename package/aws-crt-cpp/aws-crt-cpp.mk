@@ -13,8 +13,10 @@ AWS_CRT_CPP_INSTALL_STAGING = YES
 AWS_CRT_CPP_DEPENDENCIES += \
 	aws-c-auth \
 	aws-c-cal \
+	aws-c-event-stream \
 	aws-c-http \
-	aws-c-mqtt
+	aws-c-mqtt \
+	aws-checksums
 
 AWS_CRT_CPP_CONF_OPTS += \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"

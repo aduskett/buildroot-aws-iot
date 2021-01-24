@@ -1,6 +1,7 @@
 config BR2_PACKAGE_AWS_C_COMMON
 	bool "aws-c-common"
-	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # pthread_setaffinity_np
+	depends on !BR2_TOOLCHAIN_USES_MUSL # pthread_attr_setaffinity_np
 	help
 	  Core c99 package for AWS SDK for C. Includes
 	  cross-platform primitives, configuration, data structures,
@@ -8,5 +9,5 @@ config BR2_PACKAGE_AWS_C_COMMON
 
 	  https://github.com/awslabs/aws-c-common
 
-comment "aws-c-common needs a toolchain w/ threads"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS
+comment "aws-c-common needs glibc or uClibc toolchain w/ NPTL"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL || BR2_TOOLCHAIN_USES_MUSL

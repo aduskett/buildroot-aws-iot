@@ -1,6 +1,16 @@
 config BR2_PACKAGE_AWS_SDK_JAVA_V2
 	bool "aws-sdk-java-v2"
-	depends on BR2_PACKAGE_OPENJDK
+	depends on BR2_PACKAGE_HOST_OPENJDK_BIN_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
+	depends on !BR2_SOFT_FLOAT
+	depends on !BR2_STATIC_LIBS # glibc
+	depends on BR2_INSTALL_LIBSTDCPP # cups
+	depends on BR2_TOOLCHAIN_HAS_THREADS # alsa-lib, cups, libusb
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_9 # libusb
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	depends on BR2_USE_MMU # cups
+	depends on BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_OPENJDK
 	help
 	  The AWS SDK for Java 2.0 is a rewrite of 1.0 with some great
 	  new features. As with version 1.0, it enables you to easily
@@ -10,5 +20,23 @@ config BR2_PACKAGE_AWS_SDK_JAVA_V2
 
 	  https://github.com/aws/aws-sdk-java-v2
 
-comment "aws-sdk-java-v2 needs java"
-	depends on !BR2_PACKAGE_OPENJDK
+comment "aws-sdk-java needs X.Org"
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_HOST_OPENJDK_BIN_ARCH_SUPPORTS
+	depends on BR2_USE_MMU
+	depends on !BR2_PACKAGE_XORG7
+
+comment "aws-sdk-java needs glibc, and a toolchain w/ wchar, dynamic library, threads, C++, gcc >= 4.9"
+	depends on BR2_USE_MMU
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_HOST_OPENJDK_BIN_ARCH_SUPPORTS
+	depends on BR2_STATIC_LIBS || !BR2_INSTALL_LIBSTDCPP || \
+		!BR2_TOOLCHAIN_HAS_THREADS || \
+		!BR2_TOOLCHAIN_USES_GLIBC || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_4_9
+
+comment "aws-sdk-java does not support soft float configurations"
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_HOST_OPENJDK_BIN_ARCH_SUPPORTS
+	depends on BR2_USE_MMU
+	depends on BR2_SOFT_FLOAT

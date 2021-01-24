@@ -1,6 +1,7 @@
 config BR2_PACKAGE_AWS_C_COMPRESSION
 	bool "aws-c-compression"
-	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-auth -> pthread_setaffinity_np
+	depends on !BR2_TOOLCHAIN_USES_MUSL # aws-c-auth -> pthread_attr_setaffinity_np
 	select BR2_PACKAGE_AWS_C_COMMON
 	help
 	  This is a cross-platform C99 implementation of compression
@@ -9,5 +10,5 @@ config BR2_PACKAGE_AWS_C_COMPRESSION
 
 	  https://github.com/awslabs/aws-c-compression
 
-comment "aws-c-compression needs a toolchain w/ threads"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS
+comment "aws-c-compression needs glibc or uClibc toolchain w/ NPTL"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL || BR2_TOOLCHAIN_USES_MUSL

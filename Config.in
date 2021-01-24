@@ -31,6 +31,13 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-go-v2/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-java-v2/Config.in"
 endmenu
 
+menu "Multimedia packages"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-webrtc-sdk-c/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-pic/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-producer-c/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-producer-sdk-cpp/Config.in"
+endmenu
+
 menu "AWS-IOT programs"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-ssm-agent/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-securetunneling-localproxy/Config.in"
@@ -38,4 +45,5 @@ endmenu
 
 menu "system libraries"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/boost-1-69/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/usrsctp/Config.in"
 endmenu

@@ -1,0 +1,27 @@
+From b50a471cbb60cdf35528e01321c3023d4fd17df0 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Aduskett@gmail.com>
+Date: Sat, 23 Jan 2021 18:02:57 -0800
+Subject: [PATCH] add signal.h include to OpenSSLConnection.cpp
+
+This fixes builds with uClibc
+
+Signed-off-by: Adam Duskett <Aduskett@gmail.com>
+---
+ network/OpenSSL/OpenSSLConnection.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/network/OpenSSL/OpenSSLConnection.cpp b/network/OpenSSL/OpenSSLConnection.cpp
+index 23e9460..3df4655 100644
+--- a/network/OpenSSL/OpenSSLConnection.cpp
++++ b/network/OpenSSL/OpenSSLConnection.cpp
+@@ -33,6 +33,7 @@
+ #include <arpa/inet.h>
+ #include <limits>
+ #include <resolv.h>
++#include <signal.h>
+ #define MAX_PATH_LENGTH_ PATH_MAX
+ #endif
+ 
+-- 
+2.25.1
+

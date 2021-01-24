@@ -1,0 +1,30 @@
+From c20192ded5d1a6ffdeb18a590d916f6b7564fcea Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Aduskett@gmail.com>
+Date: Sat, 23 Jan 2021 18:02:34 -0800
+Subject: [PATCH] fix static linking
+
+Always link against -lz or else static linking will fail
+
+Signed-off-by: Adam Duskett <Aduskett@gmail.com>
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2469ced..7d275a1 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -83,8 +83,8 @@ target_sources(${SDK_TARGET_NAME} PRIVATE ${SDK_SOURCES})
+ 
+ # Configure Threading library
+ find_package(Threads REQUIRED)
+-set(THREAD_LIBRARY_LINK_STRING "Threads::Threads" -ldl)
+-target_link_libraries(${SDK_TARGET_NAME} "Threads::Threads" -ldl)
++set(THREAD_LIBRARY_LINK_STRING "Threads::Threads" -ldl -lz)
++target_link_libraries(${SDK_TARGET_NAME} "Threads::Threads" -ldl -lz)
+ 
+ if(APPLE)
+ 	target_link_libraries(${SDK_TARGET_NAME} -lresolv)
+-- 
+2.25.1
+

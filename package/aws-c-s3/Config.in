@@ -1,6 +1,7 @@
 config BR2_PACKAGE_AWS_C_S3
 	bool "aws-c-s3"
-	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
+	depends on !BR2_TOOLCHAIN_USES_MUSL # aws-c-common -> pthread_attr_setaffinity_np
 	select BR2_PACKAGE_AWS_C_AUTH
 	select BR2_PACKAGE_AWS_C_HTTP
 	help
@@ -10,5 +11,5 @@ config BR2_PACKAGE_AWS_C_S3
 
 	  https://github.com/awslabs/aws-c-s3
 
-comment "aws-c-cal needs a toolchain w/ threads"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS
+comment "aws-c-s3 needs glibc or uClibc toolchain w/ NPTL"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL || BR2_TOOLCHAIN_USES_MUSL
