@@ -19,4 +19,9 @@ AWS_C_AUTH_DEPENDENCIES += \
 AWS_C_AUTH_CONF_OPTS += \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
 
+define AWS_C_AUTH_REMOVE_EMPTY_DIRECTORIES
+	find $(TARGET_DIR)/usr/lib/ -type d -name aws-c-auth -exec rm -rf {} +;
+endef
+AWS_C_AUTH_TARGET_FINALIZE_HOOKS += AWS_C_AUTH_REMOVE_EMPTY_DIRECTORIES
+
 $(eval $(cmake-package))
