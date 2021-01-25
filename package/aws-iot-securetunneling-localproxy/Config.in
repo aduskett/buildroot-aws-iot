@@ -2,9 +2,9 @@ config BR2_PACKAGE_AWS_IOT_SECURETUNNELING_LOCALPROXY
 	bool "aws-iot-securetunneling-localproxy"
 	depends on BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS
 	depends on BR2_TOOLCHAIN_HAS_THREADS # boost, protobuf-c
-	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_5 # C++11
-	depends on BR2_SHARED_STATIC_LIBS
-	depends on BR2_INSTALL_LIBSTDCPP # boost-1.69
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 # C++11
+	depends on BR2_INSTALL_LIBSTDCPP # boost-1.69, protobuf
+	depends on !BR2_STATIC_LIBS # protobuf
 	depends on !BR2_PACKAGE_BOOST
 	select BR2_PACKAGE_BOOST_1_69
 	select BR2_PACKAGE_BOOST_1_69_SYSTEM
@@ -23,7 +23,7 @@ config BR2_PACKAGE_AWS_IOT_SECURETUNNELING_LOCALPROXY
 comment "aws-iot-securetunneling-localproxy is not compatible with boost >= 1.70"
 	depends on BR2_PACKAGE_BOOST
 
-comment "aws-iot-securetunneling-localproxy needs a toolchain w/ C++, threads, shared and static libs, gcc >= 5"
+comment "aws-iot-securetunneling-localproxy needs a toolchain w/ C++, threads, dynamic library, gcc >= 4.8"
 	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS \
-		|| !BR2_SHARED_STATIC_LIBS || !BR2_TOOLCHAIN_GCC_AT_LEAST_4_8
+		|| BR2_STATIC_LIBS || !BR2_TOOLCHAIN_GCC_AT_LEAST_4_8
 	depends on BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS
