@@ -18,4 +18,9 @@ AWS_C_S3_DEPENDENCIES += \
 AWS_C_S3_CONF_OPTS += \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
 
+define AWS_C_S3_REMOVE_EMPTY_DIRECTORIES
+	find $(TARGET_DIR)/usr/lib/ -type d -name aws-c-s3 -exec rm -rf {} +;
+endef
+AWS_C_S3_TARGET_FINALIZE_HOOKS += AWS_C_S3_REMOVE_EMPTY_DIRECTORIES
+
 $(eval $(cmake-package))

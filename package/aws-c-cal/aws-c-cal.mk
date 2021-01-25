@@ -17,4 +17,9 @@ AWS_C_CAL_DEPENDENCIES += \
 AWS_C_CAL_CONF_OPTS += \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
 
+define AWS_C_CAL_REMOVE_EMPTY_DIRECTORIES
+	find $(TARGET_DIR)/usr/lib/ -type d -name aws-c-cal -exec rm -rf {} +;
+endef
+AWS_C_CAL_TARGET_FINALIZE_HOOKS += AWS_C_CAL_REMOVE_EMPTY_DIRECTORIES
+
 $(eval $(cmake-package))

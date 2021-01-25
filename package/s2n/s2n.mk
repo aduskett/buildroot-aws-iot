@@ -14,4 +14,9 @@ S2N_DEPENDENCIES = openssl
 
 S2N_CONF_OPTS += -DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
 
+define S2N_REMOVE_EMPTY_DIRECTORIES
+	find $(TARGET_DIR)/usr/lib/ -name s2n -type d -exec rm -rf {} +;
+endef
+S2N_TARGET_FINALIZE_HOOKS += S2N_REMOVE_EMPTY_DIRECTORIES
+
 $(eval $(cmake-package))

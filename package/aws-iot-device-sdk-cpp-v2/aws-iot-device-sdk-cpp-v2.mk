@@ -19,4 +19,15 @@ AWS_IOT_DEVICE_SDK_CPP_V2_CONF_OPTS += \
 	-DBUILD_DEPS=OFF \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
 
+define AWS_IOT_DEVICE_SDK_CPP_V2_REMOVE_EMPTY_DIRECTORIES
+	find $(TARGET_DIR)/usr/lib/ -type d \( -iname IotIdentity-cpp \
+		-o -iname IotShadow-cpp \
+		-o -iname IotJobs-cpp \
+		-o -iname Discovery-cpp \
+		-o -iname IotDeviceCommon-cpp \
+		-o -iname IotDeviceDefender-cpp \
+		-o -iname IotSecureTunneling-cpp \) -exec rm -rf {} +;
+endef
+AWS_IOT_DEVICE_SDK_CPP_V2_TARGET_FINALIZE_HOOKS += AWS_IOT_DEVICE_SDK_CPP_V2_REMOVE_EMPTY_DIRECTORIES
+
 $(eval $(cmake-package))

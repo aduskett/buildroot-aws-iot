@@ -19,4 +19,9 @@ AWS_C_IOT_DEPENDENCIES += \
 AWS_C_IOT_CONF_OPTS += \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
 
+define AWS_C_IOT_REMOVE_EMPTY_DIRECTORIES
+	find $(TARGET_DIR)/usr/lib/ -type d -name aws-c-iot -exec rm -rf {} +;
+endef
+AWS_C_IOT_TARGET_FINALIZE_HOOKS += AWS_C_IOT_REMOVE_EMPTY_DIRECTORIES
+
 $(eval $(cmake-package))
