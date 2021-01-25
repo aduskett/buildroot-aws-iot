@@ -1,0 +1,63 @@
+From ca6f38ef8de90cb1b2e151e4b08a4bb085b473e6 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Aduskett@gmail.com>
+Date: Mon, 25 Jan 2021 12:59:01 -0800
+Subject: [PATCH] allow for non static linking
+
+Signed-off-by: Adam Duskett <Aduskett@gmail.com>
+---
+ CMakeLists.txt | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4fd4bee..cf41776 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -67,15 +67,28 @@ endif()
+ #########################################
+ # Boost dependencies                    #
+ #########################################
+-set_property(GLOBAL PROPERTY Boost_USE_STATIC_LIBS ON)
+ set_property(GLOBAL PROPERTY Boost_USE_DEBUG_RUNTIME OFF)
+ #set_property(GLOBAL PROPERTY Boost_USE_MULTITHREADED ON)
+ find_package(Boost 1.68.0 REQUIRED COMPONENTS system log log_setup thread program_options date_time filesystem)
+ include_directories(${Boost_INCLUDE_DIRS})
+-foreach(BOOST_LIB ${Boost_LIBRARIES})
+-    string(REPLACE ${CMAKE_SHARED_LIBRARY_SUFFIX} ${CMAKE_STATIC_LIBRARY_SUFFIX} BOOST_STATIC_LIB ${BOOST_LIB})
+-    list(APPEND Boost_STATIC_LIBRARIES ${BOOST_STATIC_LIB})
+-endforeach()
++if (BUILD_SHARED_LIBS)
++  set_property(GLOBAL PROPERTY Boost_USE_STATIC_LIBS OFF)
++  set(Boost_USE_STATIC_RUNTIME OFF)
++  ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
++  foreach(BOOST_LIB ${Boost_LIBRARIES})
++      list(APPEND Boost_LINK_LIBRARIES ${BOOST_LIB})
++  endforeach()
++  list(APPEND Protobuf_LINK_LIBRARY ${Protobuf_LITE_LIBRARY})
++else()
++  set_property(GLOBAL PROPERTY Boost_USE_STATIC_LIBS ON)
++  set(Boost_USE_STATIC_RUNTIME ON)
++  foreach(BOOST_LIB ${Boost_LIBRARIES})
++      string(REPLACE ${CMAKE_SHARED_LIBRARY_SUFFIX} ${CMAKE_STATIC_LIBRARY_SUFFIX} BOOST_STATIC_LIB ${BOOST_LIB})
++      list(APPEND Boost_LINK_LIBRARIES ${BOOST_STATIC_LIB})
++  endforeach()
++  find_package(ZLIB REQUIRED)
++  string(REPLACE ${CMAKE_SHARED_LIBRARY_SUFFIX} ${CMAKE_STATIC_LIBRARY_SUFFIX} Protobuf_LINK_LIBRARY ${Protobuf_LITE_LIBRARY})
++endif()
+ 
+ #########################################
+ # Target : Build aws-tunnel-local-proxy #
+@@ -104,8 +117,9 @@ endif()
+ target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${CMAKE_THREAD_LIBS_INIT})
+ target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} OpenSSL::SSL)
+ target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} OpenSSL::Crypto)
+-target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${Boost_STATIC_LIBRARIES})
+-target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${Protobuf_LITE_STATIC_LIBRARY})
++target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${ZLIB_LIBRARIES})
++target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${Boost_LIBRARIES})
++target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${Protobuf_LINK_LIBRARY})
+ 
+ 
+ include_directories(${PROJECT_SOURCE_DIR}/src)
+-- 
+2.25.1
+

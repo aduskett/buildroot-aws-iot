@@ -1,61 +1,57 @@
-From 8c61bb82036d624e11e3197989f54184a1aeddcd Mon Sep 17 00:00:00 2001
+From d541cd9646d0752415e80d1d482933f77ed67f70 Mon Sep 17 00:00:00 2001
 From: Adam Duskett <Aduskett@gmail.com>
-Date: Mon, 18 Jan 2021 17:09:34 -0800
-Subject: [PATCH] do not build unit tests
+Date: Mon, 25 Jan 2021 12:58:14 -0800
+Subject: [PATCH] Add option to disable tests
 
-Tests are not needed nor desired when cross-compiling.
-Remove the cheeck for Catch2 and remove building the tests.
+Tests are not desired when cross-compiling.
 
 Signed-off-by: Adam Duskett <Aduskett@gmail.com>
 ---
- CMakeLists.txt | 17 -----------------
- 1 file changed, 17 deletions(-)
+ CMakeLists.txt | 33 ++++++++++++++++++++-------------
+ 1 file changed, 20 insertions(+), 13 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 007d79f..5847f39 100644
+index 007d79f..4fd4bee 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -2,10 +2,8 @@ cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
- 
- set(AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME localproxy)
- set(AWS_TUNNEL_LOCAL_PROXY_LIB_NAME lproxy)
--set(AWS_TUNNEL_LOCAL_PROXY_TEST_NAME localproxytest)
- 
- project(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} CXX)
--project(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} CXX)
- 
- ######################################
- # Section : Disable in-source builds #
-@@ -57,12 +55,6 @@ protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROJECT_SOURCE_DIR}/resources/Mess
+@@ -60,8 +60,9 @@ find_package(OpenSSL REQUIRED)
  #########################################
- find_package(OpenSSL REQUIRED)
- 
--#########################################
--# Test framework dependency             #
--#########################################
+ # Test framework dependency             #
+ #########################################
 -#probably comment out for cross compiler as Catch2 is really just a header library
 -find_package(Catch2 REQUIRED)
--
++if(BUILD_TEST)
++  find_package(Catch2 REQUIRED)
++endif()
+ 
  #########################################
  # Boost dependencies                    #
- #########################################
-@@ -84,15 +76,12 @@ file(GLOB ALL_SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+@@ -84,15 +85,20 @@ file(GLOB ALL_SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
  set(UTIL_SOURCE ${PROJECT_SOURCE_DIR}/src/config/ConfigFile.cpp)
  set(CORE_SOURCES ${PROJECT_SOURCE_DIR}/src/TcpAdapterProxy.cpp ${PROJECT_SOURCE_DIR}/src/ProxySettings.cpp ${PROTO_HDRS} ${PROTO_SRCS})
  set(MAIN_SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp ${CORE_SOURCES} ${UTIL_SOURCE})
 -set(TEST_SOURCES ${PROJECT_SOURCE_DIR}/test/AdapterTests.cpp ${CORE_SOURCES} ${UTIL_SOURCE} ${PROJECT_SOURCE_DIR}/test/TestWebsocketServer.cpp)
- 
+-
  add_executable(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${MAIN_SOURCES})
 -add_executable(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${TEST_SOURCES})
++
++if(BUILD_TEST)
++  set(TEST_SOURCES ${PROJECT_SOURCE_DIR}/test/AdapterTests.cpp ${CORE_SOURCES} ${UTIL_SOURCE} ${PROJECT_SOURCE_DIR}/test/TestWebsocketServer.cpp)
++  add_executable(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${TEST_SOURCES})
++endif()
++
  
  #libatomic ensured for all platforms except OSX and WINDOWS
  if(NOT APPLE AND NOT MSVC)
      target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} atomic)
 -    target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} atomic)
++    if(BUILD_TEST)
++      target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} atomic)
++    endif()
  endif()
  
  target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${CMAKE_THREAD_LIBS_INIT})
-@@ -103,13 +92,7 @@ target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${Protobuf_LITE_STAT
+@@ -103,13 +109,14 @@ target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} ${Protobuf_LITE_STAT
  
  
  include_directories(${PROJECT_SOURCE_DIR}/src)
@@ -64,7 +60,15 @@ index 007d79f..5847f39 100644
 -target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} OpenSSL::Crypto)
 -target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${Boost_STATIC_LIBRARIES})
 -target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${Protobuf_LITE_STATIC_LIBRARY})
- 
+-
++if(BUILD_TEST)
++  target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${CMAKE_THREAD_LIBS_INIT})
++  target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} OpenSSL::SSL)
++  target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} OpenSSL::Crypto)
++  target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${Boost_STATIC_LIBRARIES})
++  target_link_libraries(${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} ${Protobuf_LITE_STATIC_LIBRARY})
++  set_property(TARGET ${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS ${TEST_COMPILER_FLAGS})
++endif()
  
  set_property(TARGET ${AWS_TUNNEL_LOCAL_PROXY_TARGET_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS ${CUSTOM_COMPILER_FLAGS})
 -set_property(TARGET ${AWS_TUNNEL_LOCAL_PROXY_TEST_NAME} APPEND_STRING PROPERTY COMPILE_FLAGS ${TEST_COMPILER_FLAGS})
