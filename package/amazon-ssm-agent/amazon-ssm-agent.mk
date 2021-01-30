@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AMAZON_SSM_AGENT_VERSION = 3.0.603.0
+AMAZON_SSM_AGENT_VERSION = 3.0.655.0
 AMAZON_SSM_AGENT_SITE = $(call github,aws,amazon-ssm-agent,$(AMAZON_SSM_AGENT_VERSION))
 AMAZON_SSM_AGENT_LICENSE = Apache-2.0
 AMAZON_SSM_AGENT_LICENSE_FILES = LICENSE
