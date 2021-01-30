@@ -1,7 +1,6 @@
 config BR2_PACKAGE_AWS_C_AUTH
 	bool "aws-c-auth"
 	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
-	depends on !BR2_TOOLCHAIN_USES_MUSL # aws-c-common -> pthread_attr_setaffinity_np
 	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_COMMON
 	select BR2_PACKAGE_AWS_C_HTTP
@@ -12,5 +11,5 @@ config BR2_PACKAGE_AWS_C_AUTH
 
 	  https://github.com/awslabs/aws-c-auth
 
-comment "aws-c-auth needs glibc or uClibc toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL || BR2_TOOLCHAIN_USES_MUSL
+comment "aws-c-auth needs a toolchain w/ NPTL"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL
