@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_CRT_CPP_VERSION = 0.8.3
+AWS_CRT_CPP_VERSION = 0.11.1
 AWS_CRT_CPP_SITE = $(call github,awslabs,aws-crt-cpp,v$(AWS_CRT_CPP_VERSION))
 AWS_CRT_CPP_LICENSE = Apache-2.0
 AWS_CRT_CPP_LICENSE_FILES = LICENSE
