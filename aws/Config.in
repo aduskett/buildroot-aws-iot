@@ -17,6 +17,7 @@ endmenu
 
 menu "AWS-IOT greengrass packages"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-greengrass-core/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-greengrass-core-v2/Config.in"
 endmenu
 
 menu "AWS-IOT SDK packages"

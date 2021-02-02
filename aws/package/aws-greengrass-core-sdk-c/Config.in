@@ -2,8 +2,7 @@ config BR2_PACKAGE_AWS_GREENGRASS_CORE_SDK_C
 	bool "aws-greengrass-core-sdk-c"
 	depends on !BR2_STATIC_LIBS
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
-	depends on BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH_SUPPORTS
-	select BR2_PACKAGE_AWS_GREENGRASS_CORE
+	depends on BR2_PACKAGE_AWS_GREENGRASS_CORE || BR2_PACKAGE_AWS_GREENGRASS_CORE_V2
 	help
 	  The AWS Greengrass Core SDK for C provides an interface to
 	  interact with the Greengrass Core system on the edge. It is

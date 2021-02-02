@@ -1,0 +1,28 @@
+config BR2_PACKAGE_AWS_GREENGRASS_CORE_V2
+	bool "aws-greengrass-core-v2"
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS # runtime
+	depends on BR2_OPENJDK_VERSION_LTS # Only OpenJDK 11.
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
+	depends on !BR2_PACKAGE_AWS_GREENGRASS_CORE
+	select BR2_PACKAGE_CA_CERTIFICATES # runtime
+	select BR2_PACKAGE_NTP # runtime
+	select BR2_PACKAGE_SUDO
+	help
+	  The Greengrass nucleus component provides functionality for
+	  device side orchestration of deployments and lifecycle
+	  management for execution of Greengrass components and
+	  applications. This includes features such as starting,
+	  stopping, and monitoring execution of components and apps,
+	  interprocess communication server for communication between
+	  components, component installation and configuration
+	  management.
+
+	  https://github.com/aws-greengrass/aws-greengrass-nucleus
+
+comment "aws-greengrass-core-v2 requires OpenJDK-11"
+	depends on !BR2_PACKAGE_AWS_GREENGRASS_CORE
+	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
+	depends on !BR2_OPENJDK_VERSION_LTS
+
+comment "aws-greengrass-core-v2 needs headers >= 3.17"
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
