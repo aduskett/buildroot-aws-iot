@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_CHECKSUMS_VERSION = 0.1.10
+AWS_CHECKSUMS_VERSION = 0.1.11
 AWS_CHECKSUMS_SITE = $(call github,awslabs,aws-checksums,v$(AWS_CHECKSUMS_VERSION))
 AWS_CHECKSUMS_LICENSE = Apache-2.0
 AWS_CHECKSUMS_LICENSE_FILES = LICENSE

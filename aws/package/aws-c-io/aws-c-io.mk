@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_IO_VERSION = 0.8.2
+AWS_C_IO_VERSION = 0.8.3
 AWS_C_IO_SITE = $(call github,awslabs,aws-c-io,v$(AWS_C_IO_VERSION))
 AWS_C_IO_LICENSE = Apache-2.0
 AWS_C_IO_LICENSE_FILES = LICENSE

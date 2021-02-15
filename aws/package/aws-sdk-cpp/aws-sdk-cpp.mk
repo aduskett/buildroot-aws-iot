@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_SDK_CPP_VERSION = 1.8.133
+AWS_SDK_CPP_VERSION = 1.8.142
 AWS_SDK_CPP_SITE = $(call github,aws,aws-sdk-cpp,$(AWS_SDK_CPP_VERSION))
 AWS_SDK_CPP_LICENSE = Apache-2.0
 AWS_SDK_CPP_LICENSE_FILES = LICENSE

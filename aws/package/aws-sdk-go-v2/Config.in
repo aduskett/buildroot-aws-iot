@@ -1,5 +1,5 @@
 config BR2_PACKAGE_AWS_SDK_GO_V2
-	bool "amazon-sdk-go-v2"
+	bool "aws-sdk-go-v2"
 	depends on BR2_PACKAGE_HOST_GO_TARGET_ARCH_SUPPORTS
 	depends on BR2_PACKAGE_HOST_GO_TARGET_CGO_LINKING_SUPPORTS
 	help

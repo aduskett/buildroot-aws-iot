@@ -3,25 +3,26 @@ From: Adam Duskett <Aduskett@gmail.com>
 Date: Sat, 23 Jan 2021 15:24:03 -0800
 Subject: [PATCH] do not require dependencies as submodules
 
-Buildroot builds it's own dependencies to ensure matching hashes.
+Buildroot builds it's own submodules.
 
+[Refreshed for 3.1.0]
 Signed-off-by: Adam Duskett <Aduskett@gmail.com>
 ---
  CMakeLists.txt | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index cbd4395..86f4bda 100644
+index 1836e61..636590f 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -92,7 +92,6 @@ set(BUILD_COMMON_LWS
- set(BUILD_COMMON_CURL
-     TRUE
-     CACHE BOOL "Build ProducerC with CURL Support" FORCE)
--add_subdirectory(${KINESIS_VIDEO_PRODUCER_C_SRC} ./kvscproducer EXCLUDE_FROM_ALL)
- 
+@@ -89,7 +89,6 @@ if(NOT EXISTS ${DEPENDENCY_DOWNLOAD_PATH})
+   file(MAKE_DIRECTORY ${DEPENDENCY_DOWNLOAD_PATH})
+ endif()
+ fetch_repo(kvscproducer)
+-add_subdirectory(${DEPENDENCY_DOWNLOAD_PATH}/libkvscproducer/kvscproducer-src EXCLUDE_FROM_ALL)
  
  ############# find dependent libraries ############
+ 
 -- 
 2.25.1
 

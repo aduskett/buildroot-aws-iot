@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-AWS_C_S3_VERSION = b5343e18a8721bbabd5f6f1b2259c1bae7741dd1
-AWS_C_S3_SITE = https://github.com/awslabs/aws-c-s3.git
-AWS_C_S3_SITE_METHOD = git
+AWS_C_S3_VERSION = 0.1.6
+AWS_C_S3_SITE = $(call github,awslabs,aws-c-s3,v$(AWS_C_S3_VERSION))
 AWS_C_S3_LICENSE = Apache-2.0
 AWS_C_S3_LICENSE_FILES = LICENSE
 AWS_C_S3_CPE_ID_VENDOR = amazon

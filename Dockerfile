@@ -60,9 +60,16 @@ RUN set -e; \
   g++-multilib \
   libc6-i386; \
   pip3 install \
+  aiohttp==3.7.3 \
+  cve==1.0.1 \
+  ijson==3.1.3 \
   nose2==0.9.2 \
   pexpect==4.8.0 \
-  spdx_lookup==0.3.3;
+  requests==2.25.1 \
+  spdx_lookup==0.3.3; \
+  cd /usr/bin/; \
+  rm python; \
+  ln -s python3 python;
 
 # Set these arguments in the docker-compose.yml file and the docker/env file
 # if you wish to change the default values.

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_MQTT_VERSION = 0.5.4
+AWS_C_MQTT_VERSION = 0.5.5
 AWS_C_MQTT_SITE = $(call github,awslabs,aws-c-mqtt,v$(AWS_C_MQTT_VERSION))
 AWS_C_MQTT_LICENSE = Apache-2.0
 AWS_C_MQTT_LICENSE_FILES = LICENSE
