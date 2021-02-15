@@ -6,7 +6,7 @@ services:
       args:
          BUILDROOT_USER: br-user
          BUILDROOT_DIR: buildroot
-         BUILDROOT_VERSION: 2021.02-rc1
+         BUILDROOT_VERSION: 2020.11.2
          EXTERNAL_TREES: aws
          BUILDROOT_PATCH_DIR: ""
          UID: 1000
