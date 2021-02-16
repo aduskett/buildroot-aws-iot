@@ -1,0 +1,49 @@
+config BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
+	bool
+	default y if BR2_HOSTARCH = "x86_64"
+
+config BR2_PACKAGE_AMAZON_CORRETTO_BIN_11_ARCH_SUPPORTS
+	bool
+	default y if BR2_aarch64
+	default y if BR2_ARM_CPU_ARMV7A || BR2_ARM_CPU_ARMV7M
+	default y if BR2_i386 || BR2_x86_64
+
+config BR2_PACKAGE_AMAZON_CORRETTO_BIN_8_ARCH_SUPPORTS
+	bool
+	default y if BR2_aarch64
+	default y if BR2_x86_64
+
+config BR2_PACKAGE_AMAZON_CORRETTO_BIN
+	bool "amazon-corretto"
+	help
+	  Amazon Corretto is a no-cost, multiplatform, production-ready
+	  distribution of the Open Java Development Kit (OpenJDK).
+
+	  https://docs.aws.amazon.com/corretto/
+
+if BR2_PACKAGE_AMAZON_CORRETTO_BIN
+
+choice
+	prompt "Corretto version"
+	default BR2_AMAZON_CORRETTO_BIN_VERSION_LEGACY
+	help
+	  Select the version of Corretto you wish to use.
+
+config BR2_AMAZON_CORRETTO_BIN_VERSION_LATEST
+	bool "Latest (Corretto 11)"
+	depends on BR2_PACKAGE_AMAZON_CORRETTO_BIN_11_ARCH_SUPPORTS
+
+config BR2_AMAZON_CORRETTO_BIN_VERSION_LEGACY
+	bool "Legacy (Corretto 8)"
+	depends on BR2_PACKAGE_AMAZON_CORRETTO_BIN_8_ARCH_SUPPORTS
+
+endchoice
+
+config BR2_PACKAGE_AMAZON_CORRETTO_BIN_ARCH
+	string
+	default "aarch64" if BR2_ARM_CPU_ARMV8A
+	default "armv7" if BR2_ARM_CPU_ARMV7A || BR2_ARM_CPU_ARMV7M
+	default "x64" if BR2_x86_64
+	default "x86" if BR2_i386
+
+endif

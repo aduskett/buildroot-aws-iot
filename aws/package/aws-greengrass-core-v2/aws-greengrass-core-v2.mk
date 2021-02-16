@@ -12,9 +12,9 @@ AWS_GREENGRASS_CORE_V2_CPE_ID_VENDOR = amazon
 AWS_GREENGRASS_CORE_V2_LICENSE_FILES = ggc/core/LICENSE
 
 AWS_GREENGRASS_CORE_V2_DEPENDENCIES = \
+	amazon-corretto-bin \
 	ca-certificates \
 	ntp \
-	openjdk \
 	sudo
 
 define AWS_GREENGRASS_CORE_V2_EXTRACT_CMDS
@@ -71,7 +71,7 @@ define AWS_GREENGRASS_CORE_V2_INSTALL_INIT_SYSTEMD
 		$(TARGET_DIR)/usr/lib/systemd/system/greengrass.service
 	$(SED) 's%REPLACE_WITH_GG_LOADER_FILE%/greengrass/alts/current/distro/bin/loader%g' \
 		$(TARGET_DIR)/usr/lib/systemd/system/greengrass.service
-	
+
 	$(SED) 's%REPLACE_WITH_GG_LOADER_PID_FILE%/var/run/greengrass.pid%g' \
 		$(TARGET_DIR)/usr/lib/systemd/system/greengrass.service
 endef

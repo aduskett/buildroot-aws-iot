@@ -9,7 +9,16 @@ HOST_MAVEN_BIN_SOURCE = apache-maven-$(HOST_MAVEN_BIN_VERSION)-bin.tar.gz
 HOST_MAVEN_BIN_SITE = https://www-us.apache.org/dist/maven/maven-3/$(HOST_MAVEN_BIN_VERSION)/binaries
 HOST_MAVEN_BIN_LICENSE = Apache-2.0
 HOST_MAVEN_BIN_LICENSE_FILES = LICENSE
+
+ifeq ($(BR2_OPENJDK),y)
 HOST_MAVEN_BIN_DEPENDENCIES = host-openjdk-bin
+HOST_MAVEN_BIN_JAVA_HOME="$(HOST_DIR)/usr/lib/jvm/"
+endif
+
+ifeq ($(BR2_PACKAGE_AMAZON_CORRETTO),y)
+HOST_MAVEN_BIN_DEPENDENCIES = host-amazon-corretto-bin
+HOST_MAVEN_BIN_JAVA_HOME="$(HOST_DIR)/usr/lib/jvm/amazon-corretto-$(AMAZON_CORRETTO_BIN_VERSION)"
+endif
 
 # Maven is traditionally installed in it's own seperate directory in either
 # usr/share/maven or /usr/lib/maven with the mvn binary symlinked to /usr/bin.
@@ -29,8 +38,8 @@ $(eval $(host-generic-package))
 
 # variables used by other packages
 MAVEN = \
-	JAVA_HOME="$(HOST_DIR)/usr/lib/jvm" \
+	JAVA_HOME=$(HOST_MAVEN_BIN_JAVA_HOME) \
 	M2_HOME="$(HOST_DIR)/usr/lib/maven" \
 	MAVEN_HOME="$(HOST_DIR)/usr/lib/maven" \
-	MAVEN_REPO_DIR="$(BR2_DL_DIR)/maven-repo" \
+	MAVEN_REPO_DIR=$(BR2_DL_DIR)/maven-repo \
 	$(HOST_DIR)/bin/mvn

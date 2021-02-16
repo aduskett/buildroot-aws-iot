@@ -29,6 +29,7 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-device-sdk-python-v2/Config.i
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-cpp/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-go/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-go-v2/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-java/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-sdk-java-v2/Config.in"
 endmenu
 
@@ -42,6 +43,10 @@ endmenu
 menu "AWS-IOT programs"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-ssm-agent/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-securetunneling-localproxy/Config.in"
+endmenu
+
+menu "Interpreter languages and scripting"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-corretto-bin/Config.in"
 endmenu
 
 menu "system libraries"

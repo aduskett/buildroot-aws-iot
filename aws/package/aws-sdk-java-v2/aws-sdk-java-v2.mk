@@ -13,10 +13,10 @@ AWS_SDK_JAVA_V2_INSTALL_STAGING = YES
 
 AWS_SDK_JAVA_V2_DEPENDENCIES = \
 	host-maven-bin \
-	openjdk
+	amazon-corretto-bin
 
 define AWS_SDK_JAVA_V2_BUILD_CMDS
-	cd $(@D)/ && $(MAVEN) install -Dmaven.test.skip=true -P quick
+	cd $(@D)/ && $(MAVEN) install -Dmaven.test.skip=true
 endef
 
 $(eval $(generic-package))

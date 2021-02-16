@@ -50,12 +50,12 @@ comment "OTA update agent needs a toolchain w/ dynamic library, wchar"
 
 config BR2_PACKAGE_AWS_GREENGRASS_CORE_STREAM_MANAGER
 	bool "stream manager support"
-	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS # openjdk
-	depends on BR2_OPENJDK_VERSION_LTS # Only OpenJDK 11.
+	depends on BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
+	depends on BR2_PACKAGE_AMAZON_CORRETTO_BIN
 
-comment "Stream support requires OpenJDK-11"
-	depends on BR2_PACKAGE_OPENJDK_ARCH_SUPPORTS
-	depends on !BR2_OPENJDK_VERSION_LTS
+comment "Stream support requires Corretto Java"
+	depends on BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
+	depends on !BR2_PACKAGE_AMAZON_CORRETTO_BIN
 
 config BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH
 	string
