@@ -1,3 +1,7 @@
+menu "Alexa packages"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/avs-device-sdk/Config.in"
+endmenu
+
 menu "AWS-IOT libraries"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-auth/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-cal/Config.in"

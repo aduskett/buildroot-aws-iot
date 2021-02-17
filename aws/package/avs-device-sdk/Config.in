@@ -1,0 +1,18 @@
+config BR2_PACKAGE_AVS_DEVICE_SDK
+	bool "avs-device-sdk"
+	depends on BR2_INSTALL_LIBSTDCPP # aws-crt-cpp
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_LIBCURL
+	select BR2_PACKAGE_SQLITE
+	help
+	  The Alexa Voice Service (AVS) enables developers to integrate
+	  Alexa directly into their products, bringing the convenience
+	  of voice control to any connected device. AVS provides
+	  developers with access to a suite of resources to build
+	  Alexa-enabled products, including APIs, hardware development
+	  kits, software development kits, and documentation.
+
+	  https://github.com/alexa/avs-device-sdk
+
+comment "aws-iot-device-sdk-cpp needs a toolchain w/ threads, C++"
+	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS

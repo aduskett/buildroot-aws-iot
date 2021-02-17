@@ -1,0 +1,35 @@
+From 00d04c36ce38bab9c76364f34b8273c276bb4840 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Aduskett@gmail.com>
+Date: Wed, 17 Feb 2021 12:52:13 -0800
+Subject: [PATCH] Allow in-source builds
+
+Buildroot doesn't have a mechanism to build outside of a source tree, and even
+if Buildroot did, it isn't necessary to build properly.
+
+The reason for disallowing in-source builds is:
+"Out-of-source builds are highly recommended because CMake does not track
+ any files generated or created as part of running CMake."
+
+Which isn't a concern of Buildroot.
+
+Signed-off-by: Adam Duskett <Aduskett@gmail.com>
+---
+ build/BuildDefaults.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build/BuildDefaults.cmake b/build/BuildDefaults.cmake
+index ee43f28..214ea9d 100644
+--- a/build/BuildDefaults.cmake
++++ b/build/BuildDefaults.cmake
+@@ -23,7 +23,7 @@ macro(include_once module)
+ endmacro()
+ 
+ # Disallow out-of-source-builds.
+-include_once(DisallowOutOfSourceBuilds)
++# include_once(DisallowOutOfSourceBuilds)
+ 
+ # Setup default build options, like compiler flags and build type.
+ include_once(BuildOptions)
+-- 
+2.25.1
+
