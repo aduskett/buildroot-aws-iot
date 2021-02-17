@@ -1,4 +1,6 @@
 menu "Alexa packages"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/alexa-smart-screen-sdk/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/apl-core-library/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/avs-device-sdk/Config.in"
 endmenu
 
@@ -55,5 +57,6 @@ endmenu
 
 menu "system libraries"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/boost-1-69/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/libasio/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/usrsctp/Config.in"
 endmenu

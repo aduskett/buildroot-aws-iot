@@ -1,0 +1,40 @@
+From ecd291c9e9a42f185d5b22df99f3845dd94242c6 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Aduskett@rivian.com>
+Date: Wed, 17 Feb 2021 13:33:58 -0800
+Subject: [PATCH] Tweak stdlib imports
+
+Signed-off-by: Adam Duskett <Aduskett@rivian.com>
+---
+ patches/yoga.patch | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/patches/yoga.patch b/patches/yoga.patch
+index fc30d1e..78bad15 100644
+--- a/patches/yoga.patch
++++ b/patches/yoga.patch
+@@ -235,6 +235,21 @@ index 1a374ab..6d4a0e4 100644
+        if (nodeWithoutLegacyFlag->getConfig()->printTree) {
+          YGNodePrint(
+              nodeWithoutLegacyFlag,
+-diff --git b/yoga/yoga.patch b/yoga/yoga.patch
++diff --git a/yoga/event/event.h b/yoga/event/event.h
++index 39b0739..8e5edb1 100644
++--- a/yoga/event/event.h
+++++ b/yoga/event/event.h
++@@ -10,6 +10,7 @@
++ #include <vector>
++ #include <array>
++ #include <yoga/YGEnums.h>
+++#include <stdint.h>
++ 
++ struct YGConfig;
++ struct YGNode;
++diff --git a/yoga/yoga.patch b/yoga/yoga.patch
+ new file mode 100644
+ index 0000000..e69de29
++-- 
++2.25.1
++
+-- 
+2.25.1
+

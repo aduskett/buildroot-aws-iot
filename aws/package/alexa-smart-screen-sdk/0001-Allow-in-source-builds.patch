@@ -1,0 +1,35 @@
+From 849016c3b5ee6ca3fa56ac2acecc3583157147c1 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <Aduskett@rivian.com>
+Date: Wed, 17 Feb 2021 13:45:09 -0800
+Subject: [PATCH] Allow in-source builds
+
+Buildroot doesn't have a mechanism to build outside of a source tree, and even
+if Buildroot did, it isn't necessary to build properly.
+
+The reason for disallowing in-source builds is:
+"Out-of-source builds are highly recommended because CMake does not track
+ any files generated or created as part of running CMake."
+
+Which isn't a concern of Buildroot.
+
+Signed-off-by: Adam Duskett <Aduskett@rivian.com>
+---
+ modules/Alexa/build/BuildDefaults.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules/Alexa/build/BuildDefaults.cmake b/modules/Alexa/build/BuildDefaults.cmake
+index 0f0e672..de58e71 100644
+--- a/modules/Alexa/build/BuildDefaults.cmake
++++ b/modules/Alexa/build/BuildDefaults.cmake
+@@ -11,7 +11,7 @@ macro(include_once module)
+ endmacro()
+ 
+ # Disallow out-of-source-builds.
+-include(DisallowOutOfSourceBuilds)
++# include(DisallowOutOfSourceBuilds)
+ 
+ # Setup default build options, like compiler flags and build type.
+ include(BuildOptions)
+-- 
+2.25.1
+
