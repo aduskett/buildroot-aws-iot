@@ -1,5 +1,5 @@
 # Overview
-This directory contains all necessary directories and files of which to use buildroot with aws packages for professional products.
+This directory contains all necessary directories and files of which to build external.
 
 ## Reasons for using containers to build
 Containers provide the following:
@@ -18,16 +18,16 @@ This directory has the following structure:
         - This file contains several environment variables used during the init process.
       - init
         - Automatically set's up the buildroot environment on startup and then runs /bin/bash to keep the docker container running.
-  - aws
-    - The aws directory contains several directories used for persistent storage purposes.
+  - external
+    - The external directory contains several directories used for persistent storage purposes.
         - board:
           - Board specific files and directories.
         - configs:
-          - Buildroot defconfig files. During the initialization process, the docker init script loops through this directory and applies each config to aws/output.
+          - Buildroot defconfig files. During the initialization process, the docker init script loops through this directory and applies each config to external/output.
         - dl:
           - This directory contains all downloaded source packages used in the above configs in a compressed format.
         - output:
-          - The init-script applies each config file found in aws/configs to output/config_name, and then the source code is built in that directory.
+          - The init-script applies each config file found in external/configs to output/config_name, and then the source code is built in that directory.
         - package:
           - Any external packages not in stock Buildroot go here.
         - production:
@@ -44,7 +44,7 @@ This directory has the following structure:
 
 ## Setup
   - First, set the variables in docker/env to what is appropriate for the build.
-    By default, the environment variables automatically apply all config files, and the init script automatically builds the beaglebone_defconfig found in aws/configs.
+    By default, the environment variables automatically apply all config files found in external/configs but does not auto-build them.
   - run `docker-compose build`
 
 ## Building
@@ -52,7 +52,7 @@ If auto-building:
   - run `docker-compose up`
 
 If manually-building:
-  - run `docker-compose up -d && && docker exec -ti buildroot-aws-iot-build /bin/bash`
+  - run `docker-compose up -d && && docker exec -ti buildroot-external-iot-build /bin/bash`
   - Then navigate to `/home/br-user/buildroot/` and build manually. If `AUTO_CONFIG` is set to 1
     in docker/env, then there are directories automatically created in `/home/br-user/buildroot/aws/output`
 
@@ -74,7 +74,7 @@ If manually-building:
     Patches are automatically copied and applied to buildroot when `docker-compose build` is ran.
 
 ## Adding additional external trees
-  - Add additional external trees by copying the aws directory to a new directory and adding the new directories name to the
+  - Add additional external trees by copying the external directory to a new directory and adding the new directories name to the
     EXTERNAL_TREES variable in the docker-compose.yml file nad the docker/env file.
     Both variables are SPACE DELIMITED!
 
@@ -87,11 +87,11 @@ If manually-building:
 
 - clone or download buildroot from: https://buildroot.org/
 - clone or download and extract this repository: `git clone git@github.com:aduskett/buildroot-aws-iot.git`
-- copy the config to the buildroot configs directory: `cp buildroot-aws-iot/aws/configs/greengrass_qemu_x86_64_defconfig configs/greengrass_qemu_x86_64_defconfig`
-- apply the config with the external tree: `BR2_EXTERNAL=buildroot-aws-iot/aws make greengrass_qemu_x86_64_defconfig`
+- copy the config to the buildroot configs directory: `cp buildroot-external-iot/aws/configs/greengrass_defconfig configs/greengrass_defconfig`
+- apply the config with the external tree: `BR2_EXTERNAL=buildroot-external-iot/aws make greengrass_defconfig`
 - Add or remove packages with `make menuconfig`
 - Build the project with `make`
-- Run the qemu image (see buildroot-aws-iot/aws/board/greengrass-qemu-x86_64/readme.txt)
+- Run the qemu image (see buildroot-external-iot/aws/board/greengrass/readme.txt)
 
 For more information about using and building with Buildroot, see: https://buildroot.org/downloads/manual/manual.html
 

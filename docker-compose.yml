@@ -1,25 +1,30 @@
 version: "3.7"
 services:
-   buildroot-aws-iot-build:
+   aws-iot-buildroot-build:
     build:
       context: ./
       args:
-         BUILDROOT_USER: br-user
+         BUILDROOT_USER: aws
          BUILDROOT_DIR: buildroot
-         BUILDROOT_VERSION: 2020.11.1
+         BUILDROOT_VERSION: 2021.02.3
          EXTERNAL_TREES: aws
-         BUILDROOT_PATCH_DIR: ""
          UID: 1000
          GID: 1000
-    env_file:
-      - docker/env
+    environment:
+      - APPLY_CONFIGS
+      - CLEAN_AFTER_BUILD
+      - ENV_FILES
+      - EXIT_AFTER_BUILD
+      - NO_BUILD
+      - UPDATE_DCFC_PROGRAMS
+      - VERBOSE
     privileged: true
     stdin_open: true
     tty: true
     volumes:
       - ./:/mnt
-      - buildroot-aws-iot-build-ccache:/home/ccache
-    image: buildroot-aws-iot-build:latest
-    container_name:  buildroot-aws-iot-build
+      - aws-iot-buildroot-buildccache:/home/ccache
+    image: aws-iot-buildroot-build:latest
+    container_name:  aws-iot-buildroot-build
 volumes:
-  buildroot-aws-iot-build-ccache:
+  aws-iot-buildroot-buildccache:

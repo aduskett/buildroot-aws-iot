@@ -1,14 +1,19 @@
 config BR2_PACKAGE_AWS_C_IOT
 	bool "aws-c-iot"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
+	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_AWS_C_COMPRESSION
+	select BR2_PACKAGE_AWS_C_HTTP
 	select BR2_PACKAGE_AWS_C_IO
 	select BR2_PACKAGE_AWS_C_MQTT
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_S2N
 	help
 	  C99 implementation of AWS IoT cloud services integration with
 	  devices
 
 	  https://github.com/awslabs/aws-c-iot
 
-comment "aws-c-iot needs a toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL
+comment "aws-c-iot needs a toolchain w/ threads"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS

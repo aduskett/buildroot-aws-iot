@@ -1,7 +1,11 @@
 config BR2_PACKAGE_AWS_C_COMPRESSION
 	bool "aws-c-compression"
-	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_AWS_C_IO
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_S2N
 	help
 	  This is a cross-platform C99 implementation of compression
 	  algorithms such as gzip, and huffman encoding/decoding.
@@ -9,5 +13,5 @@ config BR2_PACKAGE_AWS_C_COMPRESSION
 
 	  https://github.com/awslabs/aws-c-compression
 
-comment "aws-c-compression needs a toolchain w/ threads"
+comment "aws-c-compression a needs toolchain w/ threads"
 	depends on !BR2_TOOLCHAIN_HAS_THREADS

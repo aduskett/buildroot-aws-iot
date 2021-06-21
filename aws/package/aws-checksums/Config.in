@@ -1,0 +1,13 @@
+config BR2_PACKAGE_AWS_CHECKSUMS
+	bool "aws-checksums"
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
+	select BR2_PACKAGE_AWS_C_COMMON
+	help
+	  Cross-Platform HW accelerated CRC32c and CRC32 with fallback
+	  to efficient SW implementations. C interface with language
+	  bindings for each of our SDKs
+
+	  https://github.com/awslabs/aws-checksums
+
+comment "aws-checksums needs a toolchain w/ NPTL"
+	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

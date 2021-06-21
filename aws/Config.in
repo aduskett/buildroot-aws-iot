@@ -3,17 +3,25 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-auth/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-cal/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-common/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-compression/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-event-stream/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-checksums/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-http/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-io/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-iot/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-mqtt/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-crt-cpp/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-crt-python/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-s3/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/s2n/Config.in"
+endmenu
+
+menu "AWS-IOT client programs"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-device-client/Config.in"
 endmenu
 
 menu "AWS-IOT greengrass packages"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-greengrass-core/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-greengrass-core-v2/Config.in"
 endmenu
 
 menu "AWS-IOT SDK packages"
@@ -25,6 +33,10 @@ endmenu
 
 menu "AWS-IOT example programs"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-securetunneling-localproxy/Config.in"
+endmenu
+
+menu "Interpreter languages and scripting"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-corretto-bin/Config.in"
 endmenu
 
 menu "system libraries"

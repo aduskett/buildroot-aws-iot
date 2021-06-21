@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_CRT_PYTHON_VERSION = 0.5.11
+AWS_CRT_PYTHON_VERSION = 0.10.3
 AWS_CRT_PYTHON_SITE = $(call github,awslabs,aws-crt-python,v$(AWS_CRT_PYTHON_VERSION))
 AWS_CRT_PYTHON_LICENSE = Apache-2.0
 AWS_CRT_PYTHON_LICENSE_FILES = LICENSE
@@ -18,6 +18,7 @@ AWS_CRT_PYTHON_DEPENDENCIES = \
 	aws-c-cal \
 	aws-c-common \
 	aws-c-compression \
+	aws-c-event-stream \
 	aws-c-http \
 	aws-c-io \
 	aws-c-mqtt \

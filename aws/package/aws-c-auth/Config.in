@@ -3,8 +3,11 @@ config BR2_PACKAGE_AWS_C_AUTH
 	depends on BR2_TOOLCHAIN_HAS_THREADS # aws-c-common
 	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_AWS_C_COMPRESSION
 	select BR2_PACKAGE_AWS_C_HTTP
 	select BR2_PACKAGE_AWS_C_IO
+	select BR2_PACKAGE_OPENSSL
+	select BR2_PACKAGE_S2N
 	help
 	  C99 library implementation of AWS client-side authentication:
 	  standard credentials providers and signing.
