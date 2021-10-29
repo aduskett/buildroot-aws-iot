@@ -1,0 +1,26 @@
+From 2d9be5e5c559940bf72bb80d5cb0f5368afb7213 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Fri, 29 Oct 2021 15:00:55 -0700
+Subject: [PATCH] fix building against musl
+
+Fixes: error: 'mode_t' has not been declared
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ source/util/FileUtils.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/source/util/FileUtils.h b/source/util/FileUtils.h
+index 9d7499f..6b0f7d5 100644
+--- a/source/util/FileUtils.h
++++ b/source/util/FileUtils.h
+@@ -5,6 +5,7 @@
+ #define AWS_IOT_DEVICE_CLIENT_FILEUTILS_H
+ 
+ #include <aws/common/byte_buf.h>
++#include <sys/stat.h>
+ #include <string>
+ 
+ namespace Aws
+-- 
+2.32.0
+

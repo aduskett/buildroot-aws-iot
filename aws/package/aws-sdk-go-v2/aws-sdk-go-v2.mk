@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_SDK_GO_V2_VERSION = 1.2.0
+AWS_SDK_GO_V2_VERSION = 1.10.0
 AWS_SDK_GO_V2_SITE = $(call github,aws,aws-sdk-go-v2,v$(AWS_SDK_GO_V2_VERSION))
 AWS_SDK_GO_V2_LICENSE = Apache-2.0
 AWS_SDK_GO_V2_LICENSE_FILES = LICENSE.txt

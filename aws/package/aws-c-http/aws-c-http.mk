@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_HTTP_VERSION = 0.5.19
+AWS_C_HTTP_VERSION = 0.6.5
 AWS_C_HTTP_SITE = $(call github,awslabs,aws-c-http,v$(AWS_C_HTTP_VERSION))
 AWS_C_HTTP_LICENSE = Apache-2.0
 AWS_C_HTTP_LICENSE_FILES = LICENSE
@@ -15,7 +15,8 @@ AWS_C_HTTP_DEPENDENCIES += \
 	aws-c-io
 
 AWS_C_HTTP_CONF_OPTS += \
-	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
+	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr" \
+	-DENABLE_PROXY_INTEGRATION_TESTS=OFF
 
 define AWS_C_HTTP_REMOVE_EMPTY_DIRECTORIES
 	find $(TARGET_DIR)/usr/lib/ -type d -name aws-c-http -exec rm -rf {} +;

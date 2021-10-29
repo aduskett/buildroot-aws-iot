@@ -5,20 +5,13 @@ description="Everything needed to build Buildroot in a reproducable manner."
 ENV DEBIAN_FRONTEND=noninteractive 
 ENV TZ=US/Pacific
 
-RUN set -e; \
-  apt-get update; \
-  apt-get install -y apt-utils; \
-  apt-get upgrade -y; \
-  apt-get install -y locales;
-
-RUN set -e; \
-  rm -rf /var/lib/apt/lists/*; \
-  localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-
 # Setup tzdata first as to avoid a dialog requesting tzdata setup.
 RUN set -e; \
-  apt-get update; \
-  apt-get install -y tzdata; \
+  mkdir -p /data/; \
+  apt --allow-unauthenticated update; \
+  apt --allow-unauthenticated upgrade -y; \
+  apt-get install -y apt-utils gpgv2 locales tzdata; \
+  localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8; \
   ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
   echo $TZ > /etc/timezone;
 
@@ -27,8 +20,11 @@ RUN set -e; \
   apt-get update; \
   apt-get upgrade -y; \
   apt-get install -y \
+  bash \
+  bash-completion \
   bc \
   bison \
+  bridge-utils \
   bzip2 \
   cmake \
   cpio \
@@ -40,16 +36,24 @@ RUN set -e; \
   g++ \
   gcc \
   git \
+  graphviz \
+  help2man \
+  iproute2 \
   lib32z1 \
+  libgl1 \
   make \
   mc \
   mercurial \
   nano \
   ncurses-dev \
+  net-tools \
   patch \
+  psmisc \
   python-dev \
   python3-dev \
   python3-pip \
+  qemu-kvm \
+  qemu-system \
   rsync \
   subversion \
   sudo \
@@ -88,6 +92,7 @@ ARG GID
 RUN set -e; \
   groupadd -r -g ${GID} ${BUILDROOT_USER}; \
   useradd -ms /bin/bash -u ${UID} -g ${GID} ${BUILDROOT_USER}; \
+  usermod -aG rdma ${BUILDROOT_USER}; \
   echo "alias ls='ls --color=auto'" >> /home/${BUILDROOT_USER}/.bashrc; \
   echo "PS1='\u@\H [\w]$ '" >> /home/${BUILDROOT_USER}/.bashrc; \
   chown -R ${BUILDROOT_USER}:${BUILDROOT_USER} /home/${BUILDROOT_USER}; \
@@ -124,9 +129,12 @@ COPY ${BUILDROOT_PATCH_DIR}* /tmp/patches/
 RUN set -e; \
   cd  /home/${BUILDROOT_USER}/${BUILDROOT_DIR}; \
   if [ -n "${BUILDROOT_PATCH_DIR}" ]; then \
-    for i in $(find /tmp/patches/ -name "*.patch" -exec readlink -f {} \; ); do patch -p1 < "${i}"; done; \
+    for i in $(find /tmp/patches/ -name "*.patch" -exec readlink -f {} \; | sort ); do \
+      echo "Applying patch: $(basename ${i})"; \
+      patch -p1 < "${i}"; done; \
   fi; \
-  rm -rf ${BUILDROOT_PATCH_DIR};
+  rm -rf ${BUILDROOT_PATCH_DIR}; \
+  chown -R ${BUILDROOT_USER}:${BUILDROOT_USER} /home/${BUILDROOT_USER}/${BUILDROOT_DIR};
 
 COPY --chown=${BUILDROOT_USER}:${BUILDROOT_USER} docker/init /init
 

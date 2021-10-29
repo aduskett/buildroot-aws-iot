@@ -1,7 +1,7 @@
 config BR2_PACKAGE_AWS_C_IO
 	bool "aws-c-io"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
 	select BR2_PACKAGE_AWS_C_COMMON
+	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_S2N
 	help
 	  This is a module for the AWS SDK for C. It handles all IO and
@@ -20,6 +20,3 @@ config BR2_PACKAGE_AWS_C_IO
 	  server, client, and mobile.
 
 	  https://github.com/awslabs/aws-c-io
-
-comment "aws-c-io needs a toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

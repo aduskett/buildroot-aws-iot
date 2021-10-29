@@ -1,0 +1,86 @@
+From 4574bd235ab28691ed6cdd644df2857da45af698 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Thu, 28 Oct 2021 14:35:32 -0700
+Subject: [PATCH] Drop hardening related flags
+
+These will be set by Buildroot depending on toolchain capabilities and
+global Buildroot options.
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt             | 3 ---
+ pq-crypto/bike_r1/Makefile | 2 +-
+ pq-crypto/bike_r2/Makefile | 2 +-
+ pq-crypto/bike_r3/Makefile | 2 +-
+ s2n.mk                     | 2 +-
+ 5 files changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b72effb..82ed8f0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -320,9 +320,6 @@ endif()
+ target_compile_options(${PROJECT_NAME} PUBLIC -fPIC)
+ 
+ target_compile_definitions(${PROJECT_NAME} PRIVATE -D_POSIX_C_SOURCE=200809L)
+-if(CMAKE_BUILD_TYPE MATCHES Release)
+-    target_compile_definitions(${PROJECT_NAME} PRIVATE -D_FORTIFY_SOURCE=2)
+-endif()
+ 
+ if(NO_STACK_PROTECTOR)
+     target_compile_options(${PROJECT_NAME} PRIVATE -Wstack-protector -fstack-protector-all)
+diff --git a/pq-crypto/bike_r1/Makefile b/pq-crypto/bike_r1/Makefile
+index 656c302..24ce7b7 100644
+--- a/pq-crypto/bike_r1/Makefile
++++ b/pq-crypto/bike_r1/Makefile
+@@ -15,7 +15,7 @@ CFLAGS += -Wno-missing-braces -Wno-missing-field-initializers -I../../
+ all: $(OBJS)
+ 
+ CFLAGS_LLVM = -emit-llvm -c -g \
+-              -std=c99 -fgnu89-inline -D_POSIX_C_SOURCE=200809L -D_FORTIFY_SOURCE=2 \
++              -std=c99 -fgnu89-inline -D_POSIX_C_SOURCE=200809L \
+               -I$(LIBCRYPTO_ROOT)/include/ -I../../api/ -I../../
+ 
+ BCS=$(addprefix $(BITCODE_DIR), $(SRCS:.c=.bc))
+diff --git a/pq-crypto/bike_r2/Makefile b/pq-crypto/bike_r2/Makefile
+index 016715c..7e32a5c 100644
+--- a/pq-crypto/bike_r2/Makefile
++++ b/pq-crypto/bike_r2/Makefile
+@@ -27,7 +27,7 @@ CFLAGS += -Wno-missing-braces -Wno-missing-field-initializers -I../../
+ all: $(OBJS)
+ 
+ CFLAGS_LLVM = -emit-llvm -c -g \
+-              -std=c99 -fgnu89-inline -D_POSIX_C_SOURCE=200809L -D_FORTIFY_SOURCE=2 \
++              -std=c99 -fgnu89-inline -D_POSIX_C_SOURCE=200809L \
+               -I$(LIBCRYPTO_ROOT)/include/ -I../../api/ -I../../
+ 
+ BCS=$(addprefix $(BITCODE_DIR), $(SRCS:.c=.bc))
+diff --git a/pq-crypto/bike_r3/Makefile b/pq-crypto/bike_r3/Makefile
+index f87fad0..860e8e7 100644
+--- a/pq-crypto/bike_r3/Makefile
++++ b/pq-crypto/bike_r3/Makefile
+@@ -50,7 +50,7 @@ CFLAGS += -Wno-missing-braces -Wno-missing-field-initializers -I../../
+ all: $(OBJS) $(AVX2_OBJS) $(AVX512_OBJS) $(PCLMUL_OBJS) $(VPCLMUL_OBJS)
+ 
+ CFLAGS_LLVM = -emit-llvm -c -g \
+-              -std=c99 -fgnu89-inline -D_POSIX_C_SOURCE=200809L -D_FORTIFY_SOURCE=2 \
++              -std=c99 -fgnu89-inline -D_POSIX_C_SOURCE=200809L \
+               -I$(LIBCRYPTO_ROOT)/include/ -I../../api/ -I../../
+ 
+ BCS=$(addprefix $(BITCODE_DIR), $(SRCS:.c=.bc))
+diff --git a/s2n.mk b/s2n.mk
+index 32b78bd..68ddf2d 100644
+--- a/s2n.mk
++++ b/s2n.mk
+@@ -46,7 +46,7 @@ DEFAULT_CFLAGS += -pedantic -Wall -Werror -Wimplicit -Wunused -Wcomment -Wchar-s
+                  -Wshadow  -Wcast-align -Wwrite-strings -fPIC -Wno-missing-braces\
+                  -D_POSIX_C_SOURCE=200809L -O2 -I$(LIBCRYPTO_ROOT)/include/ \
+                  -I$(S2N_ROOT)/api/ -I$(S2N_ROOT) -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security \
+-                 -D_FORTIFY_SOURCE=2 -fgnu89-inline -fvisibility=hidden -DS2N_EXPORTS
++                 -fgnu89-inline -fvisibility=hidden -DS2N_EXPORTS
+ 
+ COVERAGE_CFLAGS = -fprofile-arcs -ftest-coverage
+ COVERAGE_LDFLAGS = --coverage
+-- 
+2.32.0
+

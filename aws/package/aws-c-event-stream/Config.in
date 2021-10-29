@@ -1,6 +1,6 @@
 config BR2_PACKAGE_AWS_C_EVENT_STREAM
 	bool "aws-c-event-stream"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-io -> aws-c-common -> pthread_setaffinity_np
+	select BR2_PACKAGE_AWS_C_COMMON
 	select BR2_PACKAGE_AWS_C_IO
 	select BR2_PACKAGE_AWS_CHECKSUMS
 	help
@@ -8,6 +8,3 @@ config BR2_PACKAGE_AWS_C_EVENT_STREAM
 	  content-type.
 
 	  https://github.com/awslabs/aws-c-event-stream
-
-comment "aws-c-event-stream needs a toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

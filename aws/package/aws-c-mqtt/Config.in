@@ -1,6 +1,5 @@
 config BR2_PACKAGE_AWS_C_MQTT
 	bool "aws-c-mqtt"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
 	select BR2_PACKAGE_AWS_C_IO
 	help
 	  C99 implementation of the MQTT/1.1 and MQTT/2 specifications
@@ -16,6 +15,3 @@ config BR2_PACKAGE_AWS_C_MQTT_WEBSOCKETS
 	  Enable MQTT connections over websockets.
 
 endif
-
-comment "aws-c-mqtt needs a toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

@@ -4,12 +4,12 @@
 #
 ################################################################################
 
-AWS_GREENGRASS_CORE_V2_VERSION = 2.0.3
+AWS_GREENGRASS_CORE_V2_VERSION = 2.4.0
 AWS_GREENGRASS_CORE_V2_SOURCE = greengrass-$(AWS_GREENGRASS_CORE_V2_VERSION).zip
 AWS_GREENGRASS_CORE_V2_SITE = https://d2s8p88vqu9w66.cloudfront.net/releases
 AWS_GREENGRASS_CORE_V2_LICENSE = Apache-2.0
 AWS_GREENGRASS_CORE_V2_CPE_ID_VENDOR = amazon
-AWS_GREENGRASS_CORE_V2_LICENSE_FILES = ggc/core/LICENSE
+AWS_GREENGRASS_CORE_V2_LICENSE_FILES = LICENSE
 
 AWS_GREENGRASS_CORE_V2_DEPENDENCIES = \
 	amazon-corretto-bin \
@@ -37,8 +37,8 @@ define AWS_GREENGRASS_CORE_V2_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 0640 $(@D)/bin/loader \
 		$(TARGET_DIR)/greengrass/alts/init/distro/bin/loader
 
-	$(INSTALL) -m 0640 $(@D)/conf/nucleus-build.properties \
-		$(TARGET_DIR)/greengrass/alts/init/distro/conf/nucleus-build.properties
+	$(INSTALL) -m 0640 $(@D)/conf/recipe.yaml \
+		$(TARGET_DIR)/greengrass/alts/init/distro/conf/recipe.yam
 
 	$(INSTALL) -m 0740 $(@D)/lib/Greengrass.jar \
 		$(TARGET_DIR)/greengrass/alts/init/distro/lib/Greengrass.jar

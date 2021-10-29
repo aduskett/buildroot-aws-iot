@@ -1,6 +1,6 @@
-From 7fe83c8fb9092781d7e973f9024be72ac4cd3170 Mon Sep 17 00:00:00 2001
+From 92d8cc6ce85de08ffa073aba2463171b8dbf4b77 Mon Sep 17 00:00:00 2001
 From: Adam Duskett <Aduskett@gmail.com>
-Date: Fri, 22 Jan 2021 19:49:32 -0800
+Date: Thu, 28 Oct 2021 13:34:16 -0700
 Subject: [PATCH] revert commit b13d3f3f724bf0ce44200760c81fbbccc07f6302
 
 Commit b13d3f3f724bf0ce44200760c81fbbccc07f6302 forces all dependent libraries
@@ -11,23 +11,22 @@ both at the same time.
 
 Signed-off-by: Adam Duskett <Aduskett@gmail.com>
 ---
- setup.py | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ setup.py | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 21a93de..d47e610 100644
+index eef396b..ec56b26 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -280,8 +280,7 @@ def awscrt_ext():
+@@ -253,8 +253,6 @@ def awscrt_ext():
  
      else:  # unix
          # linker will prefer shared libraries over static if it can find both.
--        # force linker to choose static variant by using using "-l:lib<name>.a" syntax instead of just "-lcrypto".
+-        # force linker to choose static variant by using using "-l:libcrypto.a" syntax instead of just "-lcrypto".
 -        libraries = [':lib{}.a'.format(x) for x in libraries]
-+        # force linker to choose static one by using using "-l:libcrypto.a" syntax instead of just "-lcrypto".
-         libraries += [':libcrypto.a', 'rt']
+         libraries += ['rt']
  
      if distutils.ccompiler.get_default_compiler() != 'msvc':
 -- 
-2.25.1
+2.32.0
 

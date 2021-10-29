@@ -1,6 +1,5 @@
 config BR2_PACKAGE_AWS_C_COMPRESSION
 	bool "aws-c-compression"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-auth -> pthread_setaffinity_np
 	select BR2_PACKAGE_AWS_C_COMMON
 	help
 	  This is a cross-platform C99 implementation of compression
@@ -8,6 +7,3 @@ config BR2_PACKAGE_AWS_C_COMPRESSION
 	  Currently only huffman is implemented.
 
 	  https://github.com/awslabs/aws-c-compression
-
-comment "aws-c-compression a needs toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

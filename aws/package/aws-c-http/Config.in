@@ -1,12 +1,8 @@
 config BR2_PACKAGE_AWS_C_HTTP
 	bool "aws-c-http"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
 	select BR2_PACKAGE_AWS_C_COMPRESSION
 	select BR2_PACKAGE_AWS_C_IO
 	help
 	  C99 implementation of the HTTP/1.1 and HTTP/2 specifications
 
 	  https://github.com/awslabs/aws-c-http
-
-comment "aws-c-http needs a toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

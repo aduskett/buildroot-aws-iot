@@ -1,0 +1,29 @@
+From 5b71f762de2ce18072a5a6dbccdf9f625005471b Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Thu, 28 Oct 2021 17:00:41 -0700
+Subject: [PATCH] kvs_gstreamer_audio_video_sample: Explicitly link against threads
+
+This prevents the following error:
+undefined reference to symbol 'pthread_cond_clockwait@@GLIBC_2.30'
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1836e61..742dee9 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -199,7 +199,7 @@ if(BUILD_GSTREAMER_PLUGIN)
+   target_link_libraries(kvs_gstreamer_multistream_sample ${GST_APP_LIBRARIES} KinesisVideoProducer)
+ 
+   add_executable(kvs_gstreamer_audio_video_sample samples/kvs_gstreamer_audio_video_sample.cpp)
+-  target_link_libraries(kvs_gstreamer_audio_video_sample ${GST_APP_LIBRARIES} KinesisVideoProducer)
++  target_link_libraries(kvs_gstreamer_audio_video_sample ${GST_APP_LIBRARIES} KinesisVideoProducer Threads::Threads)
+ 
+   add_executable(kvs_gstreamer_file_uploader_sample samples/kvs_gstreamer_file_uploader_sample.cpp)
+   target_link_libraries(kvs_gstreamer_file_uploader_sample ${GST_APP_LIBRARIES})
+-- 
+2.32.0
+

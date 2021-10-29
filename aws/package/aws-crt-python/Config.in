@@ -1,26 +1,24 @@
 config BR2_PACKAGE_AWS_CRT_PYTHON
 	bool "aws-crt-python"
 	depends on BR2_INSTALL_LIBSTDCPP
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
-	depends on BR2_PACKAGE_PYTHON || BR2_PACKAGE_PYTHON3
-	select BR2_PACKAGE_PYTHON_SSL if BR2_PACKAGE_PYTHON
-	select BR2_PACKAGE_PYTHON3_SSL if BR2_PACKAGE_PYTHON3
+	depends on BR2_PACKAGE_PYTHON3
+	select BR2_PACKAGE_PYTHON3_SSL
 	select BR2_PACKAGE_AWS_C_AUTH
 	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_COMMON
 	select BR2_PACKAGE_AWS_C_COMPRESSION
 	select BR2_PACKAGE_AWS_C_EVENT_STREAM
+	select BR2_PACKAGE_AWS_CHECKSUMS
 	select BR2_PACKAGE_AWS_C_HTTP
 	select BR2_PACKAGE_AWS_C_IO
 	select BR2_PACKAGE_AWS_C_MQTT
 	select BR2_PACKAGE_AWS_C_S3
-	select BR2_PACKAGE_PYTHON_ENUM34 if BR2_PACKAGE_PYTHON
-	select BR2_PACKAGE_PYTHON_FUTURES if BR2_PACKAGE_PYTHON
+	select BR2_PACKAGE_AWS_LC
 	select BR2_PACKAGE_S2N
 	help
 	  Python bindings for the AWS Common Runtime.
 
 	  https://github.com/awslabs/aws-crt-python
 
-comment "aws-crt-python needs a toolchain w/ NPTL, C++"
-	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS_NPTL
+comment "aws-crt-python needs a toolchain w/ C++"
+	depends on !BR2_INSTALL_LIBSTDCPP

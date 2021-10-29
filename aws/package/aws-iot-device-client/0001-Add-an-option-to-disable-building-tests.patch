@@ -1,0 +1,27 @@
+From 626952acb08412693e4453ab1f8124950e5ec9bc Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Thu, 28 Oct 2021 14:59:30 -0700
+Subject: [PATCH] Add an option to disable building tests
+
+Tests are not desired when cross-compiling.
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 140f24b..d35afae 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -233,4 +233,6 @@ if (BUILD_TEST_DEPS)
+             ${CMAKE_BINARY_DIR}/googletest-build)
+ endif ()
+ 
+-add_subdirectory(test)
++if(BUILD_TESTS)
++  add_subdirectory(test)
++endif(BUILD_TESTS)
+-- 
+2.32.0
+

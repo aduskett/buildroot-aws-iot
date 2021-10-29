@@ -1,7 +1,7 @@
 config BR2_PACKAGE_AWS_SDK_JAVA_V2
 	bool "aws-sdk-java-v2"
 	depends on BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
-	select BR2_AMAZON_CORRETTO_BIN
+	depends on BR2_AMAZON_CORRETTO_BIN_VERSION_LATEST
 	help
 	  The AWS SDK for Java 2.0 is a rewrite of 1.0 with some great
 	  new features. As with version 1.0, it enables you to easily
@@ -10,3 +10,7 @@ config BR2_PACKAGE_AWS_SDK_JAVA_V2
 	  customize your applications.
 
 	  https://github.com/aws/aws-sdk-java-v2
+
+comment "aws-sdk-java-v2 needs amazon-corretto-bin current"
+	depends on BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
+	depends on !BR2_AMAZON_CORRETTO_BIN_VERSION_LATEST

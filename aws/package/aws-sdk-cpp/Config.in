@@ -1,9 +1,10 @@
 config BR2_PACKAGE_AWS_SDK_CPP
 	bool "aws-sdk-cpp"
+	depends on BR2_TOOLCHAIN_USES_GLIBC
 	depends on BR2_INSTALL_LIBSTDCPP
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
 	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_EVENT_STREAM
+	select BR2_PACKAGE_AWS_CRT_CPP
 	select BR2_PACKAGE_ZLIB
 	help
 	  The AWS SDK for C++ provides a modern C++ (C++ 11 or later)
@@ -41,5 +42,5 @@ comment "text-to-speech support needs a toolchain w/ wchar, threads, dynamic lib
 
 endif
 
-comment "aws-sdk-cpp needs a toolchain w/ NPTL, C++"
-	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS_NPTL
+comment "aws-sdk-cpp needs a glibc toolchain w/ C++"
+	depends on !BR2_TOOLCHAIN_USES_GLIBC || !BR2_INSTALL_LIBSTDCPP

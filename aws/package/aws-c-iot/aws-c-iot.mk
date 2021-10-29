@@ -4,16 +4,13 @@
 #
 ################################################################################
 
-AWS_C_IOT_VERSION = 0.0.3
+AWS_C_IOT_VERSION = 0.0.7
 AWS_C_IOT_SITE = $(call github,awslabs,aws-c-iot,v$(AWS_C_IOT_VERSION))
 AWS_C_IOT_LICENSE = Apache-2.0
 AWS_C_IOT_LICENSE_FILES = LICENSE
 AWS_C_IOT_CPE_ID_VENDOR = amazon
 AWS_C_IOT_INSTALL_STAGING = YES
-AWS_C_IOT_DEPENDENCIES += \
-	aws-c-common \
-	aws-c-io \
-	aws-c-mqtt
+AWS_C_IOT_DEPENDENCIES += aws-c-mqtt
 
 AWS_C_IOT_CONF_OPTS += \
 	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"

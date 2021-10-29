@@ -1,0 +1,28 @@
+From 2c186dfbffaac22722f1b3c3ba20450e0639dbfa Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Fri, 29 Oct 2021 13:14:52 -0700
+Subject: [PATCH] Fix building against uclibc
+
+Add #include <cstdarg> to StringUtils.h to fix the following error:
+error: 'va_list' has not been declared
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ source/util/StringUtils.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/source/util/StringUtils.h b/source/util/StringUtils.h
+index 2421e40..4f7f95a 100644
+--- a/source/util/StringUtils.h
++++ b/source/util/StringUtils.h
+@@ -2,6 +2,7 @@
+ // SPDX-License-Identifier: Apache-2.0
+ 
+ #include <aws/crt/Types.h>
++#include <cstdarg>
+ #include <string>
+ 
+ namespace Aws
+-- 
+2.32.0
+

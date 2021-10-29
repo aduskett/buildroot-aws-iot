@@ -1,6 +1,5 @@
 config BR2_PACKAGE_S2N
 	bool "s2n"
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
 	select BR2_PACKAGE_OPENSSL
 	help
 	  s2n is a C99 implementation of the TLS/SSL protocols that is
@@ -9,6 +8,3 @@ config BR2_PACKAGE_S2N
 	  License 2.0.
 
 	  https://github.com/awslabs/s2n
-
-comment "s2n needs a toolchain w/ NPTL"
-	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL

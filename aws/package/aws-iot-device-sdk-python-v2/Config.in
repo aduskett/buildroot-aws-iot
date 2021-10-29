@@ -1,7 +1,6 @@
 config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_PYTHON_V2
 	bool "aws-iot-device-sdk-python-v2"
 	depends on BR2_INSTALL_LIBSTDCPP
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # aws-c-common -> pthread_setaffinity_np
 	depends on BR2_PACKAGE_PYTHON3
 	select BR2_PACKAGE_PYTHON3_SSL
 	select BR2_PACKAGE_AWS_CRT_PYTHON
@@ -10,5 +9,5 @@ config BR2_PACKAGE_AWS_IOT_DEVICE_SDK_PYTHON_V2
 
 	  https://github.com/aws/aws-iot-device-sdk-python-v2
 
-comment "aws-iot-device-sdk-python-v2 needs a toolchain w/ NPTL, C++"
-	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS_NPTL
+comment "aws-iot-device-sdk-python-v2 needs a toolchain w/ C++"
+	depends on !BR2_INSTALL_LIBSTDCPP

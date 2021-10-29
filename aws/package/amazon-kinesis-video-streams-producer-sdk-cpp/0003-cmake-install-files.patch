@@ -1,0 +1,80 @@
+From c0b8f148aeee7db7cc968fb825cb5c3b908df84b Mon Sep 17 00:00:00 2001
+From: Tom spot Callaway <spot@fedoraproject.org>
+Date: Tue, 6 Jul 2021 16:45:23 -0400
+Subject: [PATCH] install some files
+
+Signed-off-by: Tom spot Callaway <spot@fedoraproject.org>
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fd4250d..fb9a7af 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,6 +6,7 @@ cmake_minimum_required(VERSION 2.8)
+ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMake;${CMAKE_MODULE_PATH}")
+ include(Utilities)
+ project(KinesisVideoProducerCpp)
++include(GNUInstallDirs)
+ 
+ set(CMAKE_CXX_STANDARD 11)
+ 
+@@ -175,12 +176,29 @@ target_link_libraries(
+          ${Log4cplus}
+          ${LIBCURL_LIBRARIES})
+ 
++install(
++    TARGETS KinesisVideoProducer
++    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
++
+ if(BUILD_JNI)
+   find_package(JNI REQUIRED)
+   include_directories(${JNI_INCLUDE_DIRS})
+ 
++  install(
++    DIRECTORY ${KINESIS_VIDEO_PRODUCER_CPP_SRC}/src/JNI/include
++    DESTINATION .)
++
+   add_library(KinesisVideoProducerJNI SHARED ${JNI_HEADERS} ${JNI_SOURCE_FILES})
+   target_link_libraries(KinesisVideoProducerJNI kvspic)
++
++  install(
++    TARGETS KinesisVideoProducerJNI
++    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
++
+ endif()
+ 
+ 
+@@ -191,18 +209,23 @@ if(BUILD_GSTREAMER_PLUGIN)
+ 
+   add_library(gstkvssink MODULE ${GST_PLUGIN_SOURCE_FILES})
+   target_link_libraries(gstkvssink PRIVATE ${GST_APP_LIBRARIES} KinesisVideoProducer)
++  install(TARGETS gstkvssink LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}/gstreamer-1.0")
+ 
+   add_executable(kvs_gstreamer_sample samples/kvs_gstreamer_sample.cpp)
+   target_link_libraries(kvs_gstreamer_sample ${GST_APP_LIBRARIES} KinesisVideoProducer)
++  install(TARGETS kvs_gstreamer_sample RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+ 
+   add_executable(kvs_gstreamer_multistream_sample samples/kvs_gstreamer_multistream_sample.cpp)
+   target_link_libraries(kvs_gstreamer_multistream_sample ${GST_APP_LIBRARIES} KinesisVideoProducer)
++  install(TARGETS kvs_gstreamer_multistream_sample RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+ 
+   add_executable(kvs_gstreamer_audio_video_sample samples/kvs_gstreamer_audio_video_sample.cpp)
+   target_link_libraries(kvs_gstreamer_audio_video_sample ${GST_APP_LIBRARIES} KinesisVideoProducer Threads::Threads)
++  install(TARGETS kvs_gstreamer_audio_video_sample RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+ 
+   add_executable(kvs_gstreamer_file_uploader_sample samples/kvs_gstreamer_file_uploader_sample.cpp)
+   target_link_libraries(kvs_gstreamer_file_uploader_sample ${GST_APP_LIBRARIES})
++  install(TARGETS kvs_gstreamer_file_uploader_sample RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+ endif()
+ 
+ if(BUILD_TEST)
+-- 
+2.32.0
+

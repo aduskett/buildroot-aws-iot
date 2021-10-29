@@ -1,2 +1,0 @@
-# User rules for ssm-agent
-ssm-agent ALL=(ALL) NOPASSWD:ALL

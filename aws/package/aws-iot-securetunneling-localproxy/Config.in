@@ -1,18 +1,19 @@
 config BR2_PACKAGE_AWS_IOT_SECURETUNNELING_LOCALPROXY
 	bool "aws-iot-securetunneling-localproxy"
 	depends on BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # boost log
 	depends on BR2_TOOLCHAIN_HAS_THREADS # boost, protobuf-c
 	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 # C++11
 	depends on !BR2_STATIC_LIBS # protobuf
-	depends on BR2_INSTALL_LIBSTDCPP # boost-1.69, protobuf
-	depends on !BR2_PACKAGE_BOOST
-	select BR2_PACKAGE_BOOST_1_69
-	select BR2_PACKAGE_BOOST_1_69_SYSTEM
-	select BR2_PACKAGE_BOOST_1_69_LOG
-	select BR2_PACKAGE_BOOST_1_69_THREAD
-	select BR2_PACKAGE_BOOST_1_69_PROGRAM_OPTIONS
-	select BR2_PACKAGE_BOOST_1_69_DATE_TIME
-	select BR2_PACKAGE_BOOST_1_69_FILESYSTEM
+	depends on BR2_INSTALL_LIBSTDCPP # boost, protobuf
+	depends on BR2_USE_WCHAR # boost
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_BOOST_SYSTEM
+	select BR2_PACKAGE_BOOST_LOG
+	select BR2_PACKAGE_BOOST_THREAD
+	select BR2_PACKAGE_BOOST_PROGRAM_OPTIONS
+	select BR2_PACKAGE_BOOST_DATE_TIME
+	select BR2_PACKAGE_BOOST_FILESYSTEM
 	select BR2_PACKAGE_PROTOBUF
 	help
 	  Example C++ implementation of a local proxy for the AWS IoT
@@ -20,10 +21,9 @@ config BR2_PACKAGE_AWS_IOT_SECURETUNNELING_LOCALPROXY
 
 	  https://github.com/aws-samples/aws-iot-securetunneling-localproxy
 
-comment "aws-iot-securetunneling-localproxy is not compatible with boost >= 1.70"
-	depends on BR2_PACKAGE_BOOST
-
-comment "aws-iot-securetunneling-localproxy needs a toolchain w/ C++, threads, dynamic library, gcc >= 4.8"
+comment "aws-iot-securetunneling-localproxy needs a toolchain w/ C++, threads, NPTL, dynamic library, wchar, gcc >= 4.8"
 	depends on !BR2_INSTALL_LIBSTDCPP || !BR2_TOOLCHAIN_HAS_THREADS \
-		|| BR2_STATIC_LIBS || !BR2_TOOLCHAIN_GCC_AT_LEAST_4_8
+		|| BR2_STATIC_LIBS || !BR2_USE_WCHAR || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 || \
+		!BR2_TOOLCHAIN_HAS_THREADS_NPTL
 	depends on BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS

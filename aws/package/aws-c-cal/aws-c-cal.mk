@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_CAL_VERSION = 0.4.5
+AWS_C_CAL_VERSION = 0.5.11
 AWS_C_CAL_SITE = $(call github,awslabs,aws-c-cal,v$(AWS_C_CAL_VERSION))
 AWS_C_CAL_LICENSE = Apache-2.0
 AWS_C_CAL_LICENSE_FILES = LICENSE
@@ -15,7 +15,9 @@ AWS_C_CAL_DEPENDENCIES += \
 	openssl
 
 AWS_C_CAL_CONF_OPTS += \
-	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr"
+	-DCMAKE_PREFIX_PATH="$(STAGING_DIR)/usr" \
+	-DBYO_CRYPTO=OFF \
+	-DUSE_OPENSSL=ON
 
 define AWS_C_CAL_REMOVE_EMPTY_DIRECTORIES
 	find $(TARGET_DIR)/usr/lib/ -type d -name aws-c-cal -exec rm -rf {} +;

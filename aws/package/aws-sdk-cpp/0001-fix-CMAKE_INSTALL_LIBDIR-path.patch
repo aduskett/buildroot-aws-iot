@@ -1,0 +1,48 @@
+From 6c1d86fae961a1c2ef6275876385fedfcd6127df Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Thu, 28 Oct 2021 18:24:24 -0700
+Subject: [PATCH] fix CMAKE_INSTALL_LIBDIR path
+
+Move the logic which appends /lib/ to the 
+CMake files to above the logic that sets AWS_MODULE_DIR to
+/${CMAKE_INSTALL_LIBDIR}/cmake
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5cc779052..46544a45c 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -105,6 +105,13 @@ endif()
+ 
+ set(PYTHON_CMD "python")
+ 
++if (UNIX AND NOT APPLE)
++    include(GNUInstallDirs)
++elseif(NOT DEFINED CMAKE_INSTALL_LIBDIR)
++    set(CMAKE_INSTALL_LIBDIR "lib")
++endif()
++
++
+ # CMAKE_MODULE_PATH is a CMAKE variable. It contains a list of paths
+ # which could be used to search CMAKE modules by "include()" or "find_package()", but the default value is empty.
+ # Add ${CMAKE_INSTALL_LIBDIR}/cmake and ${CMAKE_PREFIX_PATH}/lib/cmake to search list
+@@ -146,12 +153,6 @@ set(CMAKE_INSTALL_RPATH_USE_LINK_PATH true)
+ # build the sdk targets
+ project("aws-cpp-sdk-all" VERSION "${PROJECT_VERSION}" LANGUAGES CXX)
+ 
+-if (UNIX AND NOT APPLE)
+-    include(GNUInstallDirs)
+-elseif(NOT DEFINED CMAKE_INSTALL_LIBDIR)
+-    set(CMAKE_INSTALL_LIBDIR "lib")
+-endif()
+-
+ if (DEFINED CMAKE_PREFIX_PATH)
+     file(TO_CMAKE_PATH "${CMAKE_PREFIX_PATH}" CMAKE_PREFIX_PATH)
+ endif()
+-- 
+2.32.0
+

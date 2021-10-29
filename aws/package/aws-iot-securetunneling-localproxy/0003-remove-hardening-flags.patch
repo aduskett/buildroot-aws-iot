@@ -1,0 +1,28 @@
+From 95cab28c0bccfd57978d5c4229c4a5aa9e9a2a15 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Thu, 28 Oct 2021 18:03:35 -0700
+Subject: [PATCH] remove hardening flags
+
+Buildroot provides these flags
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6208b3e..a9364a8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -27,7 +27,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+ 
+ # Configure Compiler flags
+ if (UNIX OR APPLE)
+-    set(CUSTOM_COMPILER_FLAGS "-O2 -D_FORTIFY_SOURCE=2 -fPIE -Wall -Werror")
++    set(CUSTOM_COMPILER_FLAGS "-Wall -Werror")
+     set(TEST_COMPILER_FLAGS "${CUSTOM_COMPILER_FLAGS} -D_AWSIOT_TUNNELING_NO_SSL")
+ elseif (WIN32 OR MSVC)
+     set(CUSTOM_COMPILER_FLAGS "/W4 /DYNAMICBASE /NXCOMPAT /analyze")
+-- 
+2.32.0
+

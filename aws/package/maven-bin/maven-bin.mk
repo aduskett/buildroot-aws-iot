@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-HOST_MAVEN_BIN_VERSION = 3.6.3
+HOST_MAVEN_BIN_VERSION = 3.8.3
 HOST_MAVEN_BIN_SOURCE = apache-maven-$(HOST_MAVEN_BIN_VERSION)-bin.tar.gz
-HOST_MAVEN_BIN_SITE = https://www-us.apache.org/dist/maven/maven-3/$(HOST_MAVEN_BIN_VERSION)/binaries
+HOST_MAVEN_BIN_SITE = https://dlcdn.apache.org/maven/maven-3/$(HOST_MAVEN_BIN_VERSION)/binaries
 HOST_MAVEN_BIN_LICENSE = Apache-2.0
 HOST_MAVEN_BIN_LICENSE_FILES = LICENSE
 
@@ -15,7 +15,7 @@ HOST_MAVEN_BIN_DEPENDENCIES = host-openjdk-bin
 HOST_MAVEN_BIN_JAVA_HOME="$(HOST_DIR)/usr/lib/jvm/"
 endif
 
-ifeq ($(BR2_PACKAGE_AMAZON_CORRETTO),y)
+ifeq ($(BR2_PACKAGE_AMAZON_CORRETTO_BIN),y)
 HOST_MAVEN_BIN_DEPENDENCIES = host-amazon-corretto-bin
 HOST_MAVEN_BIN_JAVA_HOME="$(HOST_DIR)/usr/lib/jvm/amazon-corretto-$(AMAZON_CORRETTO_BIN_VERSION)"
 endif
