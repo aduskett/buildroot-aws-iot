@@ -118,7 +118,7 @@ class Buildroot:
         if build_package:
             cmd += " {}".format(build_package)
 
-        Logger.print_step("Running {}".format(cmd))
+        Logger.print_step("Running {} for {}".format(cmd, config_obj["build_path"]))
         if os.system(cmd):
             print("ERROR: Failed to build {}".format(config_obj["defconfig"]))
             if config_obj["make"] == "brmake":
