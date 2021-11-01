@@ -60,13 +60,17 @@ If manually-building:
 ## Environment variables
 These variables will overwrite the variables set in your environment json files and must be passed in front of the `docker-compose up` command:
   - `APPLY_CONFIGS`: force applying of the config files, even if previously applied.
-  - `BUILD_PACKAGE`: Specify a specific package of which to build.
+  - `BUILD_PACKAGE`: Specify a specific package or command of which to build.
   - `CLEAN_AFTER_BUILD`: Clean the build directory after building. Used to save space.
   - `ENV_FILES`: overwrite the default environment file list.
   - `EXIT_AFTER_BUILD`: Exit after build.
   - `NO_BUILD`: Do not build anything.
-  - `SINGLE_TARGET`: Only build a single target specified in env.json
+  - `TARGET`: Only build the specified target. Note: The target has to also be in env.json
   - `VERBOSE`: use make instead of brmake.
+
+## Examples:
+  - `VERBOSE="true" TARGET="test_musl" BUILD_PACKAGE="aws-iot-device-client" docker-compose up`
+     The above command would build only the aws-iot-device-client package for the test_musl target in verbose mode.
 
 # Customizations
 

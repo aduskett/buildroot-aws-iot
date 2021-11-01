@@ -1,4 +1,5 @@
 import os
+import subprocess
 import multiprocessing
 from shutil import rmtree
 from typing import Dict, Union
@@ -92,6 +93,12 @@ class Buildroot:
         """
         build_package = os.environ.get("BUILD_PACKAGE", None)
         os.chdir(config_obj["build_path"])
+        with open(os.devnull, "wb") as null:
+            subprocess.check_call(
+                [config_obj["make"], "olddefconfig"],
+                stdout=null,
+                stderr=subprocess.STDOUT,
+            )
         Logger.print_step("Building {}".format(config_obj["defconfig"]))
         cmd = "{} BR2_DL_DIR={}".format(config_obj["make"], config_obj["dl_dir"])
         # Check if per_package directories is set. If so, check if BR2_JLEVEL is set and divide
@@ -108,9 +115,10 @@ class Buildroot:
             if j_level:
                 cores = max(int(cores / j_level), 1)
             cmd += " -Otarget -j{}".format(str(cores))
-            if build_package:
-                cmd += " {}".format(build_package)
+        if build_package:
+            cmd += " {}".format(build_package)
 
+        Logger.print_step("Running {}".format(cmd))
         if os.system(cmd):
             print("ERROR: Failed to build {}".format(config_obj["defconfig"]))
             if config_obj["make"] == "brmake":

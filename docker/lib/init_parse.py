@@ -32,7 +32,7 @@ class InitParse:
         )[1]
         self.buildroot_path = "/home/{}/buildroot".format(self.user)
 
-    def __single_target(self, target: str, config: Config):
+    def __build_target(self, target: str, config: Config):
         for defconfig in self.env["configs"]:
             config_obj = config.parse(defconfig)
             if target == config_obj["defconfig"].replace("_defconfig", ""):
@@ -51,7 +51,7 @@ class InitParse:
 
     def run(self) -> bool:
         """Run all the steps."""
-        single_target = os.environ.get("SINGLE_TARGET", None)
+        build_target = os.environ.get("TARGET", None)
 
         self._parse_env()
         config = Config(self.buildroot_path, self.apply_configs)
@@ -66,8 +66,8 @@ class InitParse:
                 return False
             if not config.apply():
                 return False
-        if single_target:
-            return self.__single_target(single_target, config)
+        if build_target:
+            return self.__build_target(build_target, config)
         for defconfig in self.env["configs"]:
             config_obj = config.parse(defconfig)
             if not config_obj["build"] or config_obj["skip"] or self.no_build:
