@@ -1,0 +1,48 @@
+config BR2_PACKAGE_AMAZON_KINESIS_PRODUCER
+	bool "amazon-kinesis-producer"
+	depends on BR2_TOOLCHAIN_USES_GLIBC # aws-sdk-cpp
+	depends on BR2_INSTALL_LIBSTDCPP # aws-sdk-cpp
+	depends on !BR2_STATIC_LIBS # dlopen()
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 # C++11
+	depends on BR2_TOOLCHAIN_SUPPORTS_ALWAYS_LOCKFREE_ATOMIC_INTS
+	depends on !BR2_TOOLCHAIN_HAS_GCC_BUG_64735 # boost-thread
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # boost log
+	depends on BR2_USE_WCHAR # boost
+	depends on BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS
+	select BR2_PACKAGE_AWS_C_MQTT
+	select BR2_PACKAGE_AWS_C_MQTT_WEBSOCKETS
+	select BR2_PACKAGE_AWS_SDK_CPP
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_BOOST_CHRONO
+	select BR2_PACKAGE_BOOST_FILESYSTEM
+	select BR2_PACKAGE_BOOST_LOG
+	select BR2_PACKAGE_BOOST_RANDOM
+	select BR2_PACKAGE_BOOST_REGEX
+	select BR2_PACKAGE_BOOST_SYSTEM
+	select BR2_PACKAGE_BOOST_TEST
+	select BR2_PACKAGE_BOOST_THREAD
+	select BR2_PACKAGE_LIBCURL
+	select BR2_PACKAGE_LIBOPENSSL
+	select BR2_PACKAGE_PROTOBUF
+	select BR2_PACKAGE_UTIL_LINUX
+	select BR2_PACKAGE_UTIL_LINUX_LIBUUID
+	help
+	  The Amazon Kinesis Producer Library (KPL) performs many tasks
+	  common to creating efficient and reliable producers for Amazon
+	  Kinesis. By using the KPL, customers do not need to develop
+	  the same logic every time they create a new application for
+	  data ingestion.
+
+	  https://github.com/awslabs/amazon-kinesis-producer
+
+comment "amazon-kinesis-producer needs a glibc toolchain w/ C++, threads, dynamic library, NPTL, gcc >= 4.8"
+	depends on !BR2_TOOLCHAIN_USES_GLIBC || !BR2_INSTALL_LIBSTDCPP \
+		|| !BR2_TOOLCHAIN_HAS_THREADS || BR2_STATIC_LIBS || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_4_8
+	depends on BR2_TOOLCHAIN_SUPPORTS_ALWAYS_LOCKFREE_ATOMIC_INTS
+	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL
+	depends on BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS
+
+comment "amazon-kinesis-producer needs a toolchain not affected by GCC bug 64735"
+	depends on BR2_TOOLCHAIN_HAS_GCC_BUG_64735

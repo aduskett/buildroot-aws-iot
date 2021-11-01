@@ -17,6 +17,13 @@ config BR2_PACKAGE_AWS_SDK_CPP
 
 if BR2_PACKAGE_AWS_SDK_CPP
 
+config BR2_PACKAGE_AWS_SDK_CPP_EXTRA_MODULES
+	string "extra modules to build"
+	default ""
+	help
+	  A semi-colon delimited list of extra modules to build.
+	  By default, only the core module is built.
+
 config BR2_PACKAGE_AWS_SDK_CPP_HTTP_CLIENT
 	bool "http client"
 	select BR2_PACKAGE_LIBCURL

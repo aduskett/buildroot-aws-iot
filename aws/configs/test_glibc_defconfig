@@ -1,6 +1,9 @@
 BR2_x86_64=y
 BR2_x86_corei7_avx=y
 BR2_DL_DIR="$(TOPDIR)/aws/dl"
+BR2_CCACHE=y
+BR2_CCACHE_DIR="/home/br-user/ccache/glibc_test"
+BR2_CCACHE_INITIAL_SETUP="--max-size=5G"
 BR2_TOOLCHAIN_EXTERNAL=y
 BR2_ROOTFS_MERGED_USR=y
 BR2_SYSTEM_BIN_SH_BASH=y

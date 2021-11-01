@@ -25,7 +25,7 @@ services:
     tty: true
     volumes:
       - ./:/mnt
-      - buildroot-aws-iot-build-ccache:/home/ccache
+      - buildroot-aws-iot-build-ccache:/home/br-user/ccache
     image: buildroot-aws-iot-build:latest
     container_name:  buildroot-aws-iot-build
 volumes:

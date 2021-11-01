@@ -1,0 +1,158 @@
+From c16f362e9322d2199f28ef7d6f3a44fcba233df0 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Sun, 31 Oct 2021 15:28:20 -0700
+Subject: [PATCH] CMake fixup
+
+Add the following features:
+  - Add the ability to link against system libraries using the
+    BUILD_DEPENDENCIES option. By default, the flag is set to ON
+    to preserve existing behavior.
+
+  - Add the option ENABLE_ADDRESS_SANITIZER to match the
+    aws-sdk-cpp option.
+
+  - Add the option BUILD_TESTS. As cross-compiled environment
+    typically do not desire building tests.
+
+  - Add a install line to install kinesis_producer using `make install`
+  - Automatically Regenerate the proto files if BUILD_DEPENDENCIES is not set.
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ CMakeLists.txt | 74 ++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 68 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4896248..c1f577d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,11 @@
+ cmake_minimum_required(VERSION 3.5)
+ project(amazon_kinesis_producer)
+ include(CheckCCompilerFlag)
++include(GNUInstallDirs)
+ 
++option(BUILD_DEPENDENCIES "Whether or not to build dependent libraries from source" ON)
++option(ENABLE_ADDRESS_SANITIZER "Flags to enable/disable Address Sanitizer for gcc or clang" OFF)
++option(BUILD_TESTS "Builds the tests." ON)
+ 
+ set(THIRD_PARTY_LIB_DIR "${amazon_kinesis_producer_SOURCE_DIR}/third_party/lib")
+ 
+@@ -12,19 +16,26 @@ endif()
+ 
+ if(CMAKE_BUILD_TYPE MATCHES Debug)
+     add_definitions(-DDEBUG)
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+     if (CMAKE_COMPILER_IS_GNUCXX)
+         set(ADDL_LINK_CONFIG "${ADDL_LINK_CONFIG} -static-libasan")
+     endif (CMAKE_COMPILER_IS_GNUCXX)
+ endif(CMAKE_BUILD_TYPE MATCHES Debug)
+ 
++if(ENABLE_ADDRESS_SANITIZER)
++    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
++endif(ENABLE_ADDRESS_SANITIZER)
++
+ if(APPLE)
+     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmacosx-version-min=10.13 -framework Foundation -framework SystemConfiguration")
+ endif()
+ 
+ set(CMAKE_CXX_STANDARD 14)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
++if(BUILD_DEPENDENCIES)
+ set(CMAKE_EXE_LINKER_FLAGS "-L${THIRD_PARTY_LIB_DIR} ${ADDL_LINK_CONFIG}")
++else(BUILD_DEPENDENCIES)
++    set(CMAKE_EXE_LINKER_FLAGS "-L${ADDL_LINK_CONFIG}")
++endif(BUILD_DEPENDENCIES)
+ 
+ set(SOURCE_FILES
+         aws/auth/mutable_static_creds_provider.h
+@@ -199,9 +210,58 @@ else()
+     add_definitions(-DNULL_BACKTRACE)
+ endif()
+ 
++find_package(Threads)
++find_package(AWSSDK REQUIRED COMPONENTS kinesis monitoring)
+ 
+-
+-
++if(NOT BUILD_DEPENDENCIES)
++    find_package(CURL 7.77.0 REQUIRED)
++    find_package(OpenSSL 1.0.2 REQUIRED)
++    find_package(ZLIB 1.2.11 REQUIRED)
++
++    #########################################
++    # Generate protobuf files               #
++    #########################################
++    find_package(Protobuf 3.11.4 REQUIRED)
++    include_directories(${Protobuf_INCLUDE_DIRS})
++    file(TO_NATIVE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/aws/kinesis/protobuf PROTOFILE_PATH)
++    include_directories(${PROTOFILE_PATH})
++    file(GLOB KINESIS_PROTOS "${CMAKE_CURRENT_SOURCE_DIR}/aws/kinesis/protobuf/*.proto")
++    foreach(proto ${KINESIS_PROTOS})
++      file(TO_NATIVE_PATH ${proto} proto_native)
++      execute_process(COMMAND ${PROTOBUF_PROTOC_EXECUTABLE} --proto_path=${PROTOFILE_PATH} --cpp_out=${PROTOFILE_PATH} ${proto_native})
++    endforeach(proto)
++
++
++    #########################################
++    # Boost                                 #
++    #########################################
++    if(BUILD_TESTS)
++        find_package(Boost 1.76.0 REQUIRED COMPONENTS chrono filesystem log random regex system thread unit_test_framework)
++        ADD_DEFINITIONS(-DBOOST_TEST_DYN_LINK) 
++    else(BUILD_TESTS)
++        find_package(Boost 1.76.0 REQUIRED COMPONENTS chrono filesystem log random regex system thread)
++    endif(BUILD_TESTS)
++    include_directories(${Boost_INCLUDE_DIRS})
++    if (BUILD_SHARED_LIBS)
++        set_property(GLOBAL PROPERTY Boost_USE_STATIC_LIBS OFF)
++        set(Boost_USE_STATIC_RUNTIME OFF)
++        ADD_DEFINITIONS(-DBOOST_LOG_DYN_LINK)
++    else(BUILD_SHARED_LIBS)
++        set_property(GLOBAL PROPERTY Boost_USE_STATIC_LIBS ON)
++        set(Boost_USE_STATIC_RUNTIME ON)
++    endif(BUILD_SHARED_LIBS)
++
++    add_executable(kinesis_producer ${SOURCE_FILES} ${LOGGING_TRIGGERS} aws/kinesis/main.cc)
++    target_link_libraries(kinesis_producer ${CMAKE_THREAD_LIBS_INIT} ${AWSSDK_LINK_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES} ${LIBBACKTRACE_LIBRARIES} OpenSSL::SSL ${PROTOBUF_LIBRARY} ${UUID_LIBRARIES})
++    if(BUILD_TESTS)
++        add_executable(test_driver ${SOURCE_FILES} ${LOGGING_TRIGGERS} aws/kinesis/test_driver.cc)
++        target_link_libraries(test_driver ${CMAKE_THREAD_LIBS_INIT} ${AWSSDK_LINK_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES} ${LIBBACKTRACE_LIBRARIES} OpenSSL::SSL OpenSSL::Crypto ${PROTOBUF_LIBRARY} ${STATIC_LIBS} ${UUID_LIBRARIES})
++
++        add_executable(tests ${SOURCE_FILES} ${TESTS_SOURCE} ${LOGGING_TRIGGERS} aws/kinesis/test/test.cc)
++        target_link_libraries(tests ${CMAKE_THREAD_LIBS_INIT} ${AWSSDK_LINK_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES} ${LIBBACKTRACE_LIBRARIES} OpenSSL::SSL ${PROTOBUF_LIBRARY} ${STATIC_LIBS} ${UUID_LIBRARIES})
++    endif(BUILD_TESTS)
++
++else(NOT BUILD_DEPENDENCIES)
+ set(STATIC_LIBS
+         boost_regex
+         boost_thread
+@@ -211,9 +271,6 @@ set(STATIC_LIBS
+         boost_filesystem
+         boost_chrono)
+ 
+-find_package(Threads)
+-find_package(AWSSDK REQUIRED COMPONENTS kinesis monitoring)
+-
+ add_library(LibCrypto STATIC IMPORTED)
+ set_property(TARGET LibCrypto PROPERTY IMPORTED_LOCATION ${THIRD_PARTY_LIB_DIR}/libcrypto.a)
+ set_property(TARGET LibCrypto PROPERTY IMPORTED_LINK_INTERFACE_LIBRARIES ${LIBDL_LIBRARIES})
+@@ -237,6 +294,7 @@ add_executable(kinesis_producer ${SOURCE_FILES} ${LOGGING_TRIGGERS} aws/kinesis/
+ target_include_directories(kinesis_producer SYSTEM PUBLIC ${THIRD_PARTY_INCLUDE})
+ target_link_libraries(kinesis_producer ${CMAKE_THREAD_LIBS_INIT} LibProto ${AWSSDK_LINK_LIBRARIES} ${LIBBACKTRACE_LIBRARIES} ${STATIC_LIBS} ${UUID_LIBRARIES} LibSsl LibCurl)
+ 
++    if(BUILD_TESTS)
+ add_executable(test_driver ${SOURCE_FILES} ${LOGGING_TRIGGERS} aws/kinesis/test_driver.cc)
+ target_include_directories(test_driver SYSTEM PUBLIC ${THIRD_PARTY_INCLUDE})
+ target_link_libraries(test_driver ${CMAKE_THREAD_LIBS_INIT} LibProto ${AWSSDK_LINK_LIBRARIES} ${LIBBACKTRACE_LIBRARIES} ${STATIC_LIBS} ${UUID_LIBRARIES} LibSsl LibCurl)
+@@ -244,3 +302,7 @@ target_link_libraries(test_driver ${CMAKE_THREAD_LIBS_INIT} LibProto ${AWSSDK_LI
+ add_executable(tests ${SOURCE_FILES} ${TESTS_SOURCE} ${LOGGING_TRIGGERS} aws/kinesis/test/test.cc)
+ target_include_directories(tests SYSTEM PUBLIC ${THIRD_PARTY_INCLUDE})
+ target_link_libraries(tests ${CMAKE_THREAD_LIBS_INIT} LibProto ${AWSSDK_LINK_LIBRARIES} ${LIBBACKTRACE_LIBRARIES} ${STATIC_LIBS} boost_unit_test_framework ${UUID_LIBRARIES} LibSsl LibCurl)
++    endif(BUILD_TESTS)
++endif(NOT BUILD_DEPENDENCIES)
++
++install(TARGETS kinesis_producer DESTINATION "${CMAKE_INSTALL_BINDIR}")
+-- 
+2.32.0
+

@@ -16,7 +16,19 @@ AWS_SDK_CPP_DEPENDENCIES = \
 	aws-c-event-stream \
 	aws-crt-cpp
 
+# Only add a semi-colon if extra modules are defined.
+AWS_SDK_CPP_EXTRA_MODULES = \
+	$(call qstrip,$(BR2_PACKAGE_AWS_SDK_CPP_EXTRA_MODULES))
+ifneq ($(AWS_SDK_CPP_EXTRA_MODULES),)
+AWS_SDK_CPP_BUILD_MODULES = $(AWS_SDK_CPP_EXTRA_MODULES);
+endif
+
+ifeq ($(BR2_PACKAGE_AMAZON_KINESIS_PRODUCER),y)
+AWS_SDK_CPP_BUILD_MODULES += kinesis;monitoring;
+endif
+
 AWS_SDK_CPP_CONF_OPTS += \
+	-DBUILD_ONLY=$(subst $(space),,"$(AWS_SDK_CPP_BUILD_MODULES)") \
 	-DANDROID_BUILD_CURL=OFF \
 	-DANDROID_BUILD_OPENSSL=OFF \
 	-DANDROID_BUILD_ZLIB=OFF \

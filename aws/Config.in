@@ -11,6 +11,7 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-mqtt/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-crt-cpp/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-crt-python/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-s3/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-lambda-cpp/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-lc/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/s2n/Config.in"
 endmenu
@@ -44,6 +45,7 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-iot-device-sdk-python-v2/Config.i
 endmenu
 
 menu "Kinesis packages"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-producer/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-pic/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-producer-c/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-kinesis-video-streams-producer-sdk-cpp/Config.in"
