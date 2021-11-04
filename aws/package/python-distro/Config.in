@@ -1,0 +1,9 @@
+config BR2_PACKAGE_PYTHON_DISTRO
+	bool "python-distro"
+	depends on BR2_PACKAGE_PYTHON3
+	help
+	  Distro provides information about the OS distribution it runs
+	  on, such as a reliable machine-readable ID, or version
+	  information.
+
+	  https://github.com/python-distro/distro

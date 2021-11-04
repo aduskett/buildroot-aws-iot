@@ -1,0 +1,4 @@
+# sha256 from https://pypi.org/pypi/awscli/json
+sha256  594bc64f4fab4f36a6ffa8956e243260cf5afdb362e9a470c7d9dfcbb6eb71cf  awscli-1.21.10.tar.gz
+# Locally computed sha256 checksums
+sha256  a395e1165c2ed0e2bf041ae28e528245aedd4009b7e94ad407780257f704afc1  LICENSE.txt

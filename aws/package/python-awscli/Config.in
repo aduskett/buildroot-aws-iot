@@ -1,0 +1,12 @@
+config BR2_PACKAGE_PYTHON_AWSCLI
+	bool "python-awscli"
+	depends on BR2_PACKAGE_PYTHON3
+	select BR2_PACKAGE_PYTHON_DISTRO # runtime
+	select BR2_PACKAGE_PYTHON_RUAMEL_YAML # runtime
+	help
+	  The AWS Command Line Interface (CLI) is a unified tool to
+	  manage your AWS services. With just one tool to download and
+	  configure, you can control multiple AWS services from the
+	  command line and automate them through scripts.
+
+	  https://aws.amazon.com/cli/

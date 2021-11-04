@@ -61,6 +61,12 @@ menu "Interpreter languages and scripting"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/amazon-corretto-bin/Config.in"
 endmenu
 
+menu "Python packages"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/python-awscli/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/python-distro/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/python-ruamel-yaml/Config.in"
+endmenu
+
 menu "system libraries"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/usrsctp/Config.in"
 endmenu

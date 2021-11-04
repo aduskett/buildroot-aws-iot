@@ -1,0 +1,4 @@
+# sha256 from https://pypi.org/pypi/distro/json
+sha256  9751de4cbb57d4bfbf8fc394e125ed4a2f170fbff3dc3d78abf50be85924f8be  ruamel.yaml-0.17.17.tar.gz
+# Locally computed sha256 checksums
+sha256  c23c8e074b284ac664e9bbe42ee0eb10287fd0c562130f169696f452a0aa5485  LICENSE
