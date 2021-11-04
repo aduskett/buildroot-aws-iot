@@ -1,7 +1,7 @@
 config BR2_PACKAGE_AWS_SDK_JAVA
 	bool "aws-sdk-java"
 	depends on BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
-	depends on BR2_AMAZON_CORRETTO_BIN_VERSION_LEGACY
+	depends on BR2_AMAZON_CORRETTO_BIN_VERSION_8
 	help
 	  The AWS SDK for Java enables Java developers to easily work
 	  with Amazon Web Services and build scalable solutions with
@@ -9,6 +9,6 @@ config BR2_PACKAGE_AWS_SDK_JAVA
 
 	  https://github.com/aws/aws-sdk-java
 
-comment "aws-sdk-java needs amazon-corretto-bin legacy"
+comment "aws-sdk-java needs amazon-corretto-bin 8"
 	depends on BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
-	depends on !BR2_AMAZON_CORRETTO_BIN_VERSION_LEGACY
+	depends on !BR2_AMAZON_CORRETTO_BIN_VERSION_8

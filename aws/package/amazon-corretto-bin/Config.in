@@ -2,6 +2,11 @@ config BR2_PACKAGE_HOST_AMAZON_CORRETTO_BIN_ARCH_SUPPORTS
 	bool
 	default y if BR2_HOSTARCH = "x86_64"
 
+config BR2_PACKAGE_AMAZON_CORRETTO_BIN_17_ARCH_SUPPORTS
+	bool
+	default y if BR2_aarch64
+	default y if BR2_x86_64
+
 config BR2_PACKAGE_AMAZON_CORRETTO_BIN_11_ARCH_SUPPORTS
 	bool
 	default y if BR2_aarch64
@@ -25,16 +30,20 @@ if BR2_PACKAGE_AMAZON_CORRETTO_BIN
 
 choice
 	prompt "Corretto version"
-	default BR2_AMAZON_CORRETTO_BIN_VERSION_LEGACY
+	default BR2_AMAZON_CORRETTO_BIN_VERSION_17
 	help
 	  Select the version of Corretto you wish to use.
 
-config BR2_AMAZON_CORRETTO_BIN_VERSION_LATEST
-	bool "Latest (Corretto 11)"
+config BR2_AMAZON_CORRETTO_BIN_VERSION_17
+	bool "17"
 	depends on BR2_PACKAGE_AMAZON_CORRETTO_BIN_11_ARCH_SUPPORTS
 
-config BR2_AMAZON_CORRETTO_BIN_VERSION_LEGACY
-	bool "Legacy (Corretto 8)"
+config BR2_AMAZON_CORRETTO_BIN_VERSION_11
+	bool "11"
+	depends on BR2_PACKAGE_AMAZON_CORRETTO_BIN_11_ARCH_SUPPORTS
+
+config BR2_AMAZON_CORRETTO_BIN_VERSION_8
+	bool "8"
 	depends on BR2_PACKAGE_AMAZON_CORRETTO_BIN_8_ARCH_SUPPORTS
 
 endchoice

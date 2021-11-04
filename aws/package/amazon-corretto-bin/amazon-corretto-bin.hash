@@ -1,9 +1,11 @@
 # Locally calculated
-sha256  7b86c40410c75de44c311fe127bb1dd02c43040312d66b1363737ab3e7d77011  amazon-corretto-8.275.01.1-linux-aarch64.tar.gz
-sha256  25415701c864ec301975097f207e909d065eb7c452a501c0e4b4487e77fbdc7a  amazon-corretto-8.275.01.1-linux-x64.tar.gz
-sha256  e25669eb74d6c270af303bc0d1d859dd9ff16a0288f00a9d0ba4105467fc9695  amazon-corretto-11.0.9.12.1-linux-aarch64.tar.gz
-sha256  4648ea4419ddc20bdb6f2378355d289cbaadd588b41e112c03d03d06eaa075e2  amazon-corretto-11.0.9.12.1-linux-armv7.tar.gz
-sha256  0374ce02ab4fc7adc2bbd2ceafe4d922bc05d7010952cc4e18e9119c59c10ad9  amazon-corretto-11.0.9.12.1-linux-x86.tar.gz
-sha256  448494766be37bb8a4ecd983a09742d28b1fa426684417b0dec2f3b03c44f3a3  amazon-corretto-11.0.9.12.1-linux-x64.tar.gz
+sha256  481343ac86d1eabf37afcad03af64fc21f9152117f33378672a07bd9cc04dc50  amazon-corretto-8.312.07.1-linux-aarch64.tar.gz
+sha256  f4ada61e8b238694ddbba024f04809e5e2b5e1ff30e354779d10e5d1ded537e4  amazon-corretto-8.312.07.1-linux-x64.tar.gz
+sha256  6297fefb3a28c3384edf687abd88068ab7853eeb8d26dd585f9ef7fa80f4494a  amazon-corretto-11.0.13.8.1-linux-aarch64.tar.gz
+sha256  6271e4d1a0c25e64e501e44cfb06ee871ad992563eae03b111821e94af68dbda  amazon-corretto-11.0.13.8.1-linux-armv7.tar.gz
+sha256  39ce9cebdb0ce6795dfe68c250009f78cff509418be084f1ced3551b1ef9e7f6  amazon-corretto-11.0.13.8.1-linux-x86.tar.gz
+sha256  99a3a60556db2ad3fd04b1b5ef9e31f035cf1ff3d88286c548b4b58971986452  amazon-corretto-11.0.13.8.1-linux-x64.tar.gz
+sha256  54e006a27909655bb77e201bc018148377e4f2dca892cd5838984f7f22a05700  amazon-corretto-17.0.0.35.1-linux-aarch64.tar.gz
+sha256  4005f04eaeb0be6460f5f5b13904f8a2619540aa2ce7632fd86fa302bcae6077  amazon-corretto-17.0.0.35.1-linux-x64.tar.gz
 sha256  4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726  LICENSE
 sha256  a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb  ASSEMBLY_EXCEPTION
