@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-AWS_SDK_GO_V2_VERSION = 1.10.0
-AWS_SDK_GO_V2_SITE = $(call github,aws,aws-sdk-go-v2,v$(AWS_SDK_GO_V2_VERSION))
+AWS_SDK_GO_V2_VERSION = 2022-05-12
+AWS_SDK_GO_V2_SOURCE = release-$(AWS_SDK_GO_V2_VERSION).tar.gz
+AWS_SDK_GO_V2_SITE = https://github.com/aws/aws-sdk-go-v2/archive/refs/tags
 AWS_SDK_GO_V2_LICENSE = Apache-2.0
 AWS_SDK_GO_V2_LICENSE_FILES = LICENSE.txt
 AWS_SDK_GO_V2_CPE_ID_VENDOR = amazon

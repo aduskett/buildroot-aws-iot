@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_IOT_DEVICE_SDK_CPP_V2_VERSION = 1.14.1
+AWS_IOT_DEVICE_SDK_CPP_V2_VERSION = 1.15.4
 AWS_IOT_DEVICE_SDK_CPP_V2_SITE = $(call github,aws,aws-iot-device-sdk-cpp-v2,v$(AWS_IOT_DEVICE_SDK_CPP_V2_VERSION))
 AWS_IOT_DEVICE_SDK_CPP_V2_LICENSE = Apache-2.0
 AWS_IOT_DEVICE_SDK_CPP_V2_LICENSE_FILES = LICENSE

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_COMMON_VERSION = 0.6.8
+AWS_C_COMMON_VERSION = 0.7.2
 AWS_C_COMMON_SITE = $(call github,awslabs,aws-c-common,v$(AWS_C_COMMON_VERSION))
 AWS_C_COMMON_LICENSE = Apache-2.0
 AWS_C_COMMON_LICENSE_FILES = LICENSE

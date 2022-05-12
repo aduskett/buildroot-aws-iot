@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AMAZON_KINESIS_PRODUCER_VERSION = 0.14.9
+AMAZON_KINESIS_PRODUCER_VERSION = 0.14.12
 AMAZON_KINESIS_PRODUCER_SITE = $(call github,awslabs,amazon-kinesis-producer,v$(AMAZON_KINESIS_PRODUCER_VERSION))
 AMAZON_KINESIS_PRODUCER_LICENSE = Apache-2.0
 AMAZON_KINESIS_PRODUCER_LICENSE_FILES = LICENSE

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_IOT_DEVICE_SDK_PYTHON_V2_VERSION = 1.7.1
+AWS_IOT_DEVICE_SDK_PYTHON_V2_VERSION = 1.11.1
 AWS_IOT_DEVICE_SDK_PYTHON_V2_SITE = $(call github,aws,aws-iot-device-sdk-python-v2,v$(AWS_IOT_DEVICE_SDK_PYTHON_V2_VERSION))
 AWS_IOT_DEVICE_SDK_PYTHON_V2_LICENSE = Apache-2.0
 AWS_IOT_DEVICE_SDK_PYTHON_V2_LICENSE_FILES = LICENSE

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_C_IOT_VERSION = 0.0.7
+AWS_C_IOT_VERSION = 0.1.5
 AWS_C_IOT_SITE = $(call github,awslabs,aws-c-iot,v$(AWS_C_IOT_VERSION))
 AWS_C_IOT_LICENSE = Apache-2.0
 AWS_C_IOT_LICENSE_FILES = LICENSE

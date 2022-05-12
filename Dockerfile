@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 LABEL maintainer="Adam Duskett <aduskett@gmail.com>" \
 description="Everything needed to build Buildroot in a reproducable manner."
 
@@ -49,7 +49,6 @@ RUN set -e; \
   net-tools \
   patch \
   psmisc \
-  python-dev \
   python3-dev \
   python3-pip \
   qemu-kvm \
@@ -72,7 +71,7 @@ RUN set -e; \
   requests==2.25.1 \
   spdx_lookup==0.3.3; \
   cd /usr/bin/; \
-  rm python; \
+  rm -rf python; \
   ln -s python3 python;
 
 # Set these arguments in the docker-compose.yml file and the docker/env file
@@ -96,11 +95,11 @@ RUN set -e; \
   echo "alias ls='ls --color=auto'" >> /home/${BUILDROOT_USER}/.bashrc; \
   echo "PS1='\u@\H [\w]$ '" >> /home/${BUILDROOT_USER}/.bashrc; \
   chown -R ${BUILDROOT_USER}:${BUILDROOT_USER} /home/${BUILDROOT_USER}; \
-  wget https://buildroot.org/downloads/buildroot-${BUILDROOT_VERSION}.tar.bz2 -O /home/${BUILDROOT_USER}/buildroot.tar.bz2; \
+  wget https://buildroot.org/downloads/buildroot-${BUILDROOT_VERSION}.tar.gz -O /home/${BUILDROOT_USER}/buildroot.tar.gz; \
   mkdir -p /home/${BUILDROOT_USER}/${BUILDROOT_DIR}; \
-  tar -jxf /home/${BUILDROOT_USER}/buildroot.tar.bz2 --strip-components=1 -C /home/${BUILDROOT_USER}/${BUILDROOT_DIR}; \
+  tar -zxf /home/${BUILDROOT_USER}/buildroot.tar.gz --strip-components=1 -C /home/${BUILDROOT_USER}/${BUILDROOT_DIR}; \
   chown -R ${BUILDROOT_USER}:${BUILDROOT_USER} /home/${BUILDROOT_USER}/${BUILDROOT_DIR}; \
-  rm -rf /home/${BUILDROOT_USER}/buildroot.tar.bz2;
+  rm -rf /home/${BUILDROOT_USER}/buildroot.tar.gz;
 
 # Copy brmake to /usr/bin for non-verbose builds.
 WORKDIR /home/${BUILDROOT_USER}/${BUILDROOT_DIR}

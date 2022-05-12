@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_LC_VERSION = 0.0.2
+AWS_LC_VERSION = 1.1.0
 AWS_LC_SITE = $(call github,awslabs,aws-lc,v$(AWS_LC_VERSION))
 AWS_LC_LICENSE = Apache-2.0, OpenSSL or SSLeay, ISC, BoringSSL
 AWS_LC_LICENSE_FILES = LICENSE

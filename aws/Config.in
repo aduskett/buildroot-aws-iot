@@ -8,6 +8,7 @@ source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-checksums/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-http/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-io/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-mqtt/Config.in"
+source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-sdkutils/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-crt-cpp/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-crt-python/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/aws-c-s3/Config.in"
@@ -63,7 +64,6 @@ endmenu
 
 menu "Python packages"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/python-awscli/Config.in"
-source "$BR2_EXTERNAL_AWS_IOT_PATH/package/python-distro/Config.in"
 source "$BR2_EXTERNAL_AWS_IOT_PATH/package/python-ruamel-yaml/Config.in"
 endmenu
 

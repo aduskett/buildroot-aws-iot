@@ -1,11 +1,18 @@
 # Locally calculated
-sha256  481343ac86d1eabf37afcad03af64fc21f9152117f33378672a07bd9cc04dc50  amazon-corretto-8.312.07.1-linux-aarch64.tar.gz
-sha256  f4ada61e8b238694ddbba024f04809e5e2b5e1ff30e354779d10e5d1ded537e4  amazon-corretto-8.312.07.1-linux-x64.tar.gz
-sha256  6297fefb3a28c3384edf687abd88068ab7853eeb8d26dd585f9ef7fa80f4494a  amazon-corretto-11.0.13.8.1-linux-aarch64.tar.gz
-sha256  6271e4d1a0c25e64e501e44cfb06ee871ad992563eae03b111821e94af68dbda  amazon-corretto-11.0.13.8.1-linux-armv7.tar.gz
-sha256  39ce9cebdb0ce6795dfe68c250009f78cff509418be084f1ced3551b1ef9e7f6  amazon-corretto-11.0.13.8.1-linux-x86.tar.gz
-sha256  99a3a60556db2ad3fd04b1b5ef9e31f035cf1ff3d88286c548b4b58971986452  amazon-corretto-11.0.13.8.1-linux-x64.tar.gz
-sha256  54e006a27909655bb77e201bc018148377e4f2dca892cd5838984f7f22a05700  amazon-corretto-17.0.0.35.1-linux-aarch64.tar.gz
-sha256  4005f04eaeb0be6460f5f5b13904f8a2619540aa2ce7632fd86fa302bcae6077  amazon-corretto-17.0.0.35.1-linux-x64.tar.gz
+sha256  cd3ea7604cca20b7d03e84fe6d8f90e0de5c8fc2d057c2d78d4114e82ac8ead5  amazon-corretto-8.332.08.1-linux-aarch64.tar.gz
+sha256  364105ae5825cda8b7426fd819916b78526a279fbfd352bfada490358c3c0888  amazon-corretto-8.332.08.1-linux-x64.tar.gz
+
+sha256  d3968138f266661cdc9d0d8a6830fea1d0c697113d6496027b4eb1139bed5f68  amazon-corretto-11.0.15.9.1-linux-aarch64.tar.gz
+sha256  0db58483018d7c1a0daa222c8e1c7d77ba0bf6949c28d91fd27c1cd8a6ab09f7  amazon-corretto-11.0.15.9.1-linux-armv7.tar.gz
+sha256  cfd956be63c33217093161022cb37176e48953e4e9f4d2b7a79de0277ac8c933  amazon-corretto-11.0.15.9.1-linux-x86.tar.gz
+sha256  1878cfcb1ed374d5c8d3e11f230ec702ad3a6779107b640ddb5a0cf9e313bb61  amazon-corretto-11.0.15.9.1-linux-x64.tar.gz
+
+sha256  6f3c47ebbe3aded7a9c77276c7165596dd0d0606bf5dddd1eb01164262c55fa1  amazon-corretto-17.0.3.6.1-linux-aarch64.tar.gz
+sha256  e102e77edebb826fe22f5b6e2666d01586a87344618cdbeaed8a593787f4ff8a  amazon-corretto-17.0.3.6.1-linux-x64.tar.gz
+
+
+sha256  09134087b1a7bef2536b9983cc1d4c271529c7fb4706495380104ae04ca1d9bd  amazon-corretto-18.0.1.10.1-linux-aarch64.tar.gz
+sha256  30a47e6a1992f6169bd3eab24bddabf302a7111ea39e7b0d70213f06b5bea2dc  amazon-corretto-18.0.1.10.1-linux-x64.tar.gz
+
 sha256  4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726  LICENSE
 sha256  a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb  ASSEMBLY_EXCEPTION

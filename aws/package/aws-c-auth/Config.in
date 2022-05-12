@@ -2,6 +2,7 @@ config BR2_PACKAGE_AWS_C_AUTH
 	bool "aws-c-auth"
 	select BR2_PACKAGE_AWS_C_CAL
 	select BR2_PACKAGE_AWS_C_HTTP
+	select BR2_PACKAGE_AWS_C_SDKUTILS
 	help
 	  C99 library implementation of AWS client-side authentication:
 	  standard credentials providers and signing.

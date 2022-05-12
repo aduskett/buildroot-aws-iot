@@ -143,6 +143,22 @@ config BR2_PACKAGE_AWS_IOT_DEVICE_CLIENT_SHADOW_SAMPLES
 
 endif # if BR2_PACKAGE_AWS_IOT_DEVICE_CLIENT_SHADOW
 
+config BR2_PACKAGE_AWS_IOT_DEVICE_CLIENT_SENSOR_PUBLISH
+	bool "sensor-publish"
+	help
+	  The customer runs a local server on the device that serves
+	  sensor data over a unix domain socket in streaming mode aka
+	  SOCK_STREAM. The device client connects to the local server
+	  and parses the stream into messages delimited by a
+	  customer-provided end-of-message delimiter. Messages are
+	  buffered on the device client using the configurable size and
+	  time limits described below and published as a single batch to
+	  AWS IoT Core over MQTT. Message data received at AWS IoT Core
+	  is available for the customer to process using AWS IoT Rules
+	  Engine.
+
+	  https://github.com/awslabs/aws-iot-device-client/blob/main/source/sensor-publish/README.md
+
 endif # if BR2_PACKAGE_AWS_IOT_DEVICE_CLIENT
 
 comment "aws-iot-device-client needs a toolchain w/ C++"

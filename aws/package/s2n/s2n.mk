@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-S2N_VERSION = 1.0.13
+S2N_VERSION = 1.3.12
 S2N_SITE = $(call github,aws,s2n-tls,v$(S2N_VERSION))
 S2N_LICENSE = Apache-2.0
 S2N_LICENSE_FILES = LICENSE

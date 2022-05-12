@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_GREENGRASS_CORE_VERSION = 1.11.4
+AWS_GREENGRASS_CORE_VERSION = 1.11.6
 AWS_GREENGRASS_CORE_ARCH = $(call qstrip,$(BR2_PACKAGE_AWS_GREENGRASS_CORE_ARCH))
 AWS_GREENGRASS_CORE_SOURCE = greengrass-linux-$(AWS_GREENGRASS_CORE_ARCH)-$(AWS_GREENGRASS_CORE_VERSION).tar.gz
 AWS_GREENGRASS_CORE_SITE = https://d1onfpft10uf5o.cloudfront.net/greengrass-core/downloads/$(AWS_GREENGRASS_CORE_VERSION)
