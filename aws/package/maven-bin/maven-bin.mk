@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-HOST_MAVEN_BIN_VERSION = 3.8.3
+HOST_MAVEN_BIN_VERSION = 3.8.5
 HOST_MAVEN_BIN_SOURCE = apache-maven-$(HOST_MAVEN_BIN_VERSION)-bin.tar.gz
 HOST_MAVEN_BIN_SITE = https://dlcdn.apache.org/maven/maven-3/$(HOST_MAVEN_BIN_VERSION)/binaries
 HOST_MAVEN_BIN_LICENSE = Apache-2.0

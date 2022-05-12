@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_GREENGRASS_CORE_V2_VERSION = 2.4.0
+AWS_GREENGRASS_CORE_V2_VERSION = 2.5.5
 AWS_GREENGRASS_CORE_V2_SOURCE = greengrass-$(AWS_GREENGRASS_CORE_V2_VERSION).zip
 AWS_GREENGRASS_CORE_V2_SITE = https://d2s8p88vqu9w66.cloudfront.net/releases
 AWS_GREENGRASS_CORE_V2_LICENSE = Apache-2.0

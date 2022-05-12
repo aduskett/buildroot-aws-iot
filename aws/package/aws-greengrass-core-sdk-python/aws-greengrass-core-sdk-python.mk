@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_GREENGRASS_CORE_SDK_PYTHON_VERSION = 1.6.0
+AWS_GREENGRASS_CORE_SDK_PYTHON_VERSION = 1.6.1
 AWS_GREENGRASS_CORE_SDK_PYTHON_SITE = $(call github,aws,aws-greengrass-core-sdk-python,v$(AWS_GREENGRASS_CORE_SDK_PYTHON_VERSION))
 AWS_GREENGRASS_CORE_SDK_PYTHON_LICENSE = Apache-2.0
 AWS_GREENGRASS_CORE_SDK_PYTHON_LICENSE_FILES = LICENSE

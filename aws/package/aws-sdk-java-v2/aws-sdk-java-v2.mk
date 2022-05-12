@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AWS_SDK_JAVA_V2_VERSION = 2.17.70
+AWS_SDK_JAVA_V2_VERSION = 2.17.190
 AWS_SDK_JAVA_V2_SITE = $(call github,aws,aws-sdk-java-v2,$(AWS_SDK_JAVA_V2_VERSION))
 AWS_SDK_JAVA_V2_LICENSE = Apache-2.0
 AWS_SDK_JAVA_V2_LICENSE_FILES = LICENSE.txt
