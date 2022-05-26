@@ -1,0 +1,31 @@
+From aaf6b403c58e5fa17979212cefa3fb373723cbf0 Mon Sep 17 00:00:00 2001
+From: Adam Duskett <aduskett@gmail.com>
+Date: Thu, 26 May 2022 11:13:37 -0700
+Subject: [PATCH] add skip_build_dependencies environment variable.
+
+This prevents setup.py from attempting to download and build it's own
+dependencies, as Buildroot is responsible for this.
+
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+---
+ setup.py | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index 1e7ce97..eb3ea53 100644
+--- a/setup.py
++++ b/setup.py
+@@ -243,6 +243,10 @@ class awscrt_build_ext(setuptools.command.build_ext.build_ext):
+ 
+     def run(self):
+         # build dependencies
++        skip_build_dependencies = os.environ.get("SKIP_BUILDING_DEPENDENCIES", False)
++        if skip_build_dependencies:
++            super().run()
++            return
+         dep_build_dir = os.path.join(self.build_temp, 'deps')
+         dep_install_path = os.path.join(self.build_temp, 'deps', 'install')
+         for lib in AWS_LIBS:
+-- 
+2.36.1
+

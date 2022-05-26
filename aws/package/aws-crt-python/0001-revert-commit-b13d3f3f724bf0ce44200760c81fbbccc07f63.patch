@@ -11,22 +11,28 @@ both at the same time.
 
 Signed-off-by: Adam Duskett <Aduskett@gmail.com>
 ---
- setup.py | 2 --
- 1 file changed, 2 deletions(-)
+ setup.py | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index eef396b..ec56b26 100644
+index 1e7ce97..0c4d82e 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -253,8 +253,6 @@ def awscrt_ext():
+@@ -287,9 +287,11 @@ def awscrt_ext():
+         extra_link_args += ['-framework', 'Security']
  
      else:  # unix
-         # linker will prefer shared libraries over static if it can find both.
+-        # linker will prefer shared libraries over static if it can find both.
 -        # force linker to choose static variant by using using "-l:libcrypto.a" syntax instead of just "-lcrypto".
 -        libraries = [':lib{}.a'.format(x) for x in libraries]
++        share_libraries = os.environ.get("SHARED_LIBS", None)
++        if not share_libraries:
++            # linker will prefer shared libraries over static if it can find both.
++            # force linker to choose static variant by using using "-l:libcrypto.a" syntax instead of just "-lcrypto".
++            libraries = [':lib{}.a'.format(x) for x in libraries]
          libraries += ['rt']
  
-     if distutils.ccompiler.get_default_compiler() != 'msvc':
+         # python usually adds -pthread automatically, but we've observed
 -- 
-2.32.0
+2.36.1
 

@@ -29,6 +29,12 @@ AWS_CRT_PYTHON_DEPENDENCIES = \
 
 # Prevent errors about the deprecated functions
 # PyEval_ThreadsInitialized and PyEval_InitThreads
-AWS_CRT_PYTHON_ENV += CFLAGS="-Wno-error=deprecated-declarations"
+AWS_CRT_PYTHON_ENV += \
+	CFLAGS="-Wno-error=deprecated-declarations" \
+	SKIP_BUILDING_DEPENDENCIES=True
+
+ifeq ($(BR2_SHARED_LIBS),y)
+AWS_CRT_PYTHON_ENV += SHARED_LIBS=True
+endif
 
 $(eval $(python-package))
